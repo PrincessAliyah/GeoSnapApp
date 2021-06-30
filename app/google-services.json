@@ -84,7 +84,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:317085352909:android:0cea41961d8bdafb4dfa84",
         "android_client_info": {
-          "package_name": "com.example.snowleopardapp"
+          "package_name": "com.example.WildlifeGeoSnap"
         }
       },
       "oauth_client": [
@@ -92,7 +92,7 @@
           "client_id": "317085352909-1g72hdl126qq1sp15qnd4hfvfj6s54nr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.snowleopardapp",
+            "package_name": "com.example.WildlifeGeoSnap",
             "certificate_hash": "b1a6ff413e78d58fd335555b3c738f3073745a58"
           }
         },
@@ -158,7 +158,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:317085352909:android:944fd0d82c2f21644dfa84",
         "android_client_info": {
-          "package_name": "org.kashmirworldfoundation.snowleopard"
+          "package_name": "org.kashmirworldfoundation.WildlifeGeoSnap"
         }
       },
       "oauth_client": [
@@ -166,7 +166,7 @@
           "client_id": "317085352909-stknl8uosbvr9na1va765i8fbcpdtevu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.kashmirworldfoundation.snowleopard",
+            "package_name": "org.kashmirworldfoundation.WildlifeGeoSnap",
             "certificate_hash": "b1a6ff413e78d58fd335555b3c738f3073745a58"
           }
         },

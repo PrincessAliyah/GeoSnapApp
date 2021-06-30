@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.kashmirworldfoundation.snowleopardapp">
+    package="org.kashmirworldfoundation.WildlifeGeoSnap">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.Read_EXTERNAL_STORAGE" />
@@ -20,36 +20,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RegisterOrgAdminActivity"
+            android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterOrgAdminActivity"
             android:label="@string/title_activity_register__org__admin"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".StationListActivity" />
-        <activity android:name=".CreateStudy" />
-        <activity android:name=".GoogleMapActivity" /> <!-- <activity android:name=".Expand2" /> -->
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.StationListActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.CreateStudy" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.GoogleMapActivity" /> <!-- <activity android:name=".Expand2" /> -->
         <activity
-            android:name=".ExpandActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MapCreateList" />
-        <activity android:name=".MapCreateActivity" />
-        <activity android:name=".RegisterOrgActivity" />
-        <activity android:name=".CreateStationActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".OfflineManagerActivity" />
-        <activity android:name=".RegisterSpinner1" />
-        <activity android:name=".RegisterSpinner2" />
-        <activity android:name=".RegisterSpinner0" />
-        <activity android:name=".RebaitListActivity"></activity>
-        <activity android:name=".ForgetPasswordActivity"></activity>
-        <activity android:name=".PreyExpand" />
-        <activity android:name=".AddPreyActivity" />
-        <activity android:name=".LoginActivity">
+            android:name="org.kashmirworldfoundation.WildlifeGeoSnap.ExpandActivity"
+            android:parentActivityName="org.kashmirworldfoundation.WildlifeGeoSnap.MainActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.MapCreateList" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.MapCreateActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterOrgActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.CreateStationActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.MainActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.OfflineManagerActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner1" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner2" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner0" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RebaitListActivity"></activity>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.ForgetPasswordActivity"></activity>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.PreyExpand" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.AddPreyActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register"></activity>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.Register"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

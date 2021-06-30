@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="org.kashmirworldfoundation.snowleopardapp.RegisterSpinner1">
+    tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner1">
 
     <TextView
         android:id="@+id/RefreshSpin1"

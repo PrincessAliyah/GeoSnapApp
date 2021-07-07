@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textSize="30sp"
             android:gravity="center"
-            android:fontFamily="@font/aclonica"
+            android:fontFamily="sans-serif"
             android:text="Any Camera Signs/Comments?"/>
 
 
@@ -71,7 +71,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="168dp"
-            android:fontFamily="@font/aclonica"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="New SD Card:"
             android:textSize="30sp" />

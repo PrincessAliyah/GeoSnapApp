@@ -36,7 +36,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:shadowColor="#B4B1B1"
-        android:text="Snow Leopard"
+        android:text="Wildlife GeoSnap"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         android:textStyle="bold"

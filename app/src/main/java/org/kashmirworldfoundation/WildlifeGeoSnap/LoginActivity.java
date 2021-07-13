@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView Background;
     ConstraintLayout layout;
     ArrayList<String> studies;
+    Boolean rememberLogin = false;
 
     String userEmail, userPassword;
     @Override
@@ -77,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmail.setText(userEmail);
         mPassword.setText(userPassword);
 
+
         mForgetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                 Utils util = new Utils();
 
                 studies = new ArrayList<>();
+                userEmail = mEmail.getText().toString().trim();
+                userPassword = mPassword.getText().toString().trim();
 
                 if (userEmail != null && !userEmail.trim().isEmpty() && userPassword != null && !userPassword.trim().isEmpty()) {
                     if (util.getAgreement(LoginActivity.this)) {
@@ -174,11 +178,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void saveUserEmailPassword(View v) {
-        // TODO: add error handling for trying to save empty input. And a boolean flag as user could check and uncheck the checkbox
-        userEmail = mEmail.getText().toString();
-        userPassword = mPassword.getText().toString();
-        sharedPreference.save("email", userEmail);
-        sharedPreference.save("password", userPassword);
+        rememberLogin = !rememberLogin;
     }
 
     private void login(String email, String pass){
@@ -186,6 +186,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    if (rememberLogin) {
+                        userEmail = mEmail.getText().toString();
+                        userPassword = mPassword.getText().toString();
+                        sharedPreference.save("email", userEmail);
+                        sharedPreference.save("password", userPassword);
+                    }
+                    else{
+                        sharedPreference.clearAll();
+                    }
                     fStore.document("Member/"+fAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -246,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
 
-                    Toast.makeText(LoginActivity.this, "Error" + task.getException().getMessage(), Toast.LENGTH_LONG ).show();
+                    Toast.makeText(LoginActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG ).show();
 
                 }
 

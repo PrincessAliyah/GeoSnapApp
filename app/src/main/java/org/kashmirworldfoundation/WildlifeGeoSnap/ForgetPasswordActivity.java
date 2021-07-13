@@ -25,8 +25,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email=Email.getText().toString().trim();
-                fAuth.sendPasswordResetEmail(Email.getText().toString().trim());
-                Toast.makeText(getApplicationContext(),"Email sent to"+email+" reset Password",Toast.LENGTH_LONG).show();
+                if (!email.isEmpty()) {
+                    fAuth.sendPasswordResetEmail(Email.getText().toString().trim());
+                    Toast.makeText(getApplicationContext(), "Email sent to" + email + " reset Password", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Toast.makeText(ForgetPasswordActivity.this, "Please enter an email", Toast.LENGTH_LONG ).show();
+                }
             }
         });
 

@@ -2,6 +2,7 @@ package org.kashmirworldfoundation.WildlifeGeoSnap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
-    TextView Back, Email;
+    TextView Email, Back;
     Button Submit;
     FirebaseAuth fAuth;
     @Override
@@ -19,6 +20,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         Email=findViewById(R.id.EmailRecoveryInput);
+        Back=findViewById(R.id.ForgetPassBack);
         Submit=findViewById(R.id.RecoverySubmit);
         fAuth=FirebaseAuth.getInstance();
         Submit.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +34,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 else {
                     Toast.makeText(ForgetPasswordActivity.this, "Please enter an email", Toast.LENGTH_LONG ).show();
                 }
+            }
+        });
+        Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 

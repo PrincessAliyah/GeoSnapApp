@@ -5,7 +5,7 @@
     android:id="@+id/Background_Register_Spinner1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/snow_leopard_wallpaper1"
     tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner1">
 
     <TextView
@@ -16,8 +16,8 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Refresh"
-        android:textColor="#FAF5F7"
-        android:textSize="18sp"
+        android:textColor="@color/blackColor"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BackOrg" />
@@ -31,8 +31,8 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Choose Organization"
-        android:textColor="#FAF5F7"
-        android:textSize="18sp"
+        android:textColor="@color/blackColor"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Submit1" />
@@ -46,7 +46,7 @@
         android:fontFamily="sans-serif"
         android:shadowColor="#B4B1B1"
         android:text="Choose Country"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/blackColor"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +54,23 @@
 
     <Button
         android:id="@+id/Submit1"
-        android:layout_width="360dp"
+        android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@color/grayColor"
+        android:bottomLeftRadius="20dp"
+        android:bottomRightRadius="20dp"
         android:text="Submit"
+        android:textColor="@color/blackColor"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Spinner_Country" />
+        app:layout_constraintTop_toBottomOf="@+id/Spinner_Country"
+        app:strokeColor="@color/blackColor"
+        app:strokeWidth="0.8dp" />
 
     <Spinner
         android:id="@+id/Spinner_Country"

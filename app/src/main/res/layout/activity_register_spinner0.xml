@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/snow_leopard_wallpaper1"
     tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner0">
 
     <TextView
@@ -15,25 +15,33 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Refresh"
-        android:textColor="#FAF5F7"
-        android:textSize="18sp"
+        android:textColor="@color/blackColor"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GoBackLogin" />
 
     <Button
         android:id="@+id/submit0"
-        android:layout_width="360dp"
+        android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginTop="64dp"
         android:background="#FFFF8D"
+        android:backgroundTint="@color/grayColor"
+        android:bottomLeftRadius="20dp"
+        android:bottomRightRadius="20dp"
         android:fontFamily="sans-serif"
         android:text="Submit"
-        android:textColor="#FDFCFC"
+        android:textColor="@color/blackColor"
         android:textSize="24sp"
+        android:textStyle="bold"
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_orgS3" />
+        app:layout_constraintTop_toBottomOf="@+id/register_orgS3"
+        app:strokeColor="@color/blackColor"
+        app:strokeWidth="0.8dp" />
 
     <TextView
         android:id="@+id/GoBackLogin"
@@ -43,8 +51,8 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="Already have an account?"
-        android:textColor="#FAF5F7"
-        android:textSize="18sp"
+        android:textColor="@color/blackColor"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit0" />
@@ -54,7 +62,7 @@
         android:layout_width="375dp"
         android:layout_height="42dp"
         android:layout_marginTop="32dp"
-        android:backgroundTint="#E8E6E6"
+        android:backgroundTint="@color/blackColor"
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="Select Country:"
@@ -74,7 +82,7 @@
         android:gravity="center"
         android:shadowColor="#B4B1B1"
         android:text="Choose Organization"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/blackColor"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -76,6 +76,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/stationPic1" />
 
             <TextView
+                android:id="@+id/titleTakeDown"
+                android:layout_width="380dp"
+                android:layout_height="45dp"
+                android:layout_below="@id/expand_imageView"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:text="Take Down Log"
+                android:textColor="@color/blackColor"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleRebait" />
+
+            <TextView
                 android:id="@+id/dateText"
                 android:layout_width="185dp"
                 android:layout_height="38dp"
@@ -437,6 +453,20 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="24dp"
                 android:text="Re-Bait"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.947"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/takedownBtn"
+                android:layout_width="107dp"
+                android:layout_height="61dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="84dp"
+                android:text="Take
+                Down"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.947"
                 app:layout_constraintStart_toStartOf="parent"

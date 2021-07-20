@@ -381,7 +381,7 @@ public class ExpandActivity extends AppCompatActivity implements View.OnClickLis
     private static final String KEY_LURET = "Lure Type";
     private static final String KEY_CAMW = "Cam Works";
     private static final String KEY_SIGNS = "Signs";
-    private Button rebaitBtn;
+    private Button rebaitBtn, takedownBtn;
     private Button nxtBtn;
     private Button nxttBtn; // second Next button
     private Button subBtn; // submit button
@@ -393,7 +393,7 @@ public class ExpandActivity extends AppCompatActivity implements View.OnClickLis
     private String sdT;
     private String sLureType;
     private String camWorks;
-    private TextView Rebaitbtn;
+    private TextView RebaitLogbtn, TakedownLogbtn;
     private ImageView pic1,pic2;
     private RadioGroup baitGroup;
     private RadioGroup camGroup; // camera functional
@@ -432,8 +432,10 @@ public class ExpandActivity extends AppCompatActivity implements View.OnClickLis
         pic1 = findViewById(R.id.stationPic1);
         pic2 = findViewById(R.id.stationPic2);
         rebaitBtn = findViewById(R.id.rebaitBtn);
+        takedownBtn = findViewById(R.id.takedownBtn);
         
-        Rebaitbtn=findViewById(R.id.titleRebait);
+        RebaitLogbtn=findViewById(R.id.titleRebait);
+        TakedownLogbtn = findViewById(R.id.titleTakeDown);
         // Matching User Listener to Takedown button if form does not belong to current user
 
 
@@ -457,10 +459,21 @@ public class ExpandActivity extends AppCompatActivity implements View.OnClickLis
 
         //need to change later
         imageView.setImageResource(R.drawable.kwflogo);
-        Rebaitbtn.setOnClickListener(new View.OnClickListener() {
+        RebaitLogbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i= new Intent(getApplication().getApplicationContext(), RebaitListActivity.class);
+
+                i.putExtra("stationN",AuthorS);
+                i.putExtra("path",pathRecord);
+                startActivity(i);
+
+            }
+        });
+        TakedownLogbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(getApplication().getApplicationContext(), TakedownListActivity.class);
 
                 i.putExtra("stationN",AuthorS);
                 i.putExtra("path",pathRecord);
@@ -536,12 +549,96 @@ public class ExpandActivity extends AppCompatActivity implements View.OnClickLis
                                         }
                                         else{
                                             try {
-                                                addNote(v);
+                                                addNoteRebait(v);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
 
                                             Toast.makeText(ExpandActivity.this, "Rebaited", Toast.LENGTH_SHORT).show();
+                                            bottomSheetDialog.dismiss();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+            }
+        });
+        takedownBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                        ExpandActivity.this, R.style.BottomSheetDialogTheme
+                );
+                View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                        .inflate(
+                                R.layout.takedown_sheet,
+                                (LinearLayout)findViewById(R.id.rebaitSheetContainer)
+                        );
+                Log.d(TAG, "onClick: POP UP" +v);
+                baitGroup = (RadioGroup) bottomSheetView.findViewById(R.id.baitGroup);
+                // Next Button
+                nxtBtn = (Button) bottomSheetView.findViewById(R.id.btnNext);
+                nxtBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        View bottomSheetView2 = LayoutInflater.from(getApplicationContext())
+                                .inflate(
+                                        R.layout.takedown_sheet1,
+                                        (LinearLayout)findViewById(R.id.rebaitSheetContainer1)
+                                );
+                        bottomSheetDialog.setContentView(bottomSheetView2);
+                        bottomSheetDialog.show();
+                        camGroup = (RadioGroup) bottomSheetView2.findViewById(R.id.camGroup);
+                        numPicsInput = (EditText) bottomSheetView2.findViewById(R.id.picCountId);
+                        numPicsInput.setText("0");
+                        //overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
+                        // Second Next Button
+                        nxttBtn = (Button) bottomSheetView2.findViewById(R.id.btnNextt);
+                        nxttBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                numPics=numPicsInput.getText().toString().trim();
+                                View bottomSheetView3 = LayoutInflater.from(getApplicationContext())
+                                        .inflate(
+                                                R.layout.takedown_sheet2,
+                                                (LinearLayout)findViewById(R.id.rebaitSheetContainer2)
+                                        );
+                                bottomSheetDialog.setContentView(bottomSheetView3);
+                                bottomSheetDialog.show();
+                                Log.d(TAG, "onClick: Next");
+                                signsInput = (EditText) bottomSheetView3.findViewById(R.id.signsInput);
+                                sdInput = (EditText) bottomSheetView3.findViewById(R.id.sdInput);
+                                subBtn = (Button) bottomSheetView3.findViewById(R.id.subBtn);
+                                subBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        signsT=signsInput.getText().toString().trim();
+                                        sdT=sdInput.getText().toString().trim();
+
+                                        if (signsT.equals("")){
+                                            signsT = "None";
+                                        }
+//                                        if (numPics.equals("")||sdT.equals("")||sLureType==null||camWorks==null){
+                                        if (numPics.equals("")||sdT.equals("")){
+                                            System.out.println("numPics"+numPics);
+                                            System.out.println("sdT"+sdT);
+                                            System.out.println("camWorks"+camWorks);
+
+                                            Toast.makeText(ExpandActivity.this, "Missing Inputs", Toast.LENGTH_SHORT).show();
+                                            bottomSheetDialog.dismiss();
+                                        }
+                                        else{
+                                            try {
+                                                addNoteTakedown(v);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            Toast.makeText(ExpandActivity.this, "Taken Down", Toast.LENGTH_SHORT).show();
                                             bottomSheetDialog.dismiss();
                                         }
                                     }
@@ -626,16 +723,25 @@ public class ExpandActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    public void addNote(View v) {
+    public void addNoteRebait(View v) {
 
 
         currentTime = Calendar.getInstance().getTime();
 
         Rebait note = new Rebait(currentTime, numPics, signsT, sdT, "fish-oil", "camWorks","stationId");
-//        Rebait note = new Rebait(currentTime, numPics, signsT, sdT, sLureType, camWorks);
 
-//        notebookRef.document("9JiPRkS9IKUSBEQNMCWF").collection("Rebate Log").add(note);
-        notebookRef.collection("Rebate Log").add(note);
+        Log.e("pathRecord",pathRecord);
+
+
+    }
+    public void addNoteTakedown(View v) {
+
+
+        currentTime = Calendar.getInstance().getTime();
+
+        Takedown note = new Takedown(currentTime, numPics, signsT, sdT, "fish-oil", "camWorks","stationId");
+
+        notebookRef.collection("Takedown Log").add(note);
         Log.e("pathRecord",pathRecord);
 
 

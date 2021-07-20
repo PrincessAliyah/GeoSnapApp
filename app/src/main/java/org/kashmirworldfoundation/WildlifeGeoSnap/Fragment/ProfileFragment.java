@@ -161,7 +161,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                         Fstore.collection("Member").document(Uid).update("profile","profile/"+Uid);
                     }
                     else{
-                        createToast(getContext(),"Error adding profile please try again with a stable connection",Toast.LENGTH_LONG);
+                        Toast.makeText(getContext(),"Error adding profile please try again with a stable connection",Toast.LENGTH_LONG).show();
                     }
                 }
             });

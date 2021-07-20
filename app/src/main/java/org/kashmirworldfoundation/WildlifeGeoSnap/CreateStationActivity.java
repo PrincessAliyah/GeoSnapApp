@@ -249,7 +249,7 @@ public class CreateStationActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //Toast.makeText(EditProfileActivity.this, "OK", Toast.LENGTH_SHORT).show();
-                        createToast(CreateStationActivity.this,"Create Station Successful :"+currentTime.toString(), Toast.LENGTH_LONG);
+                        Toast.makeText(CreateStationActivity.this,"Create Station Successful :"+currentTime.toString(), Toast.LENGTH_LONG).show();
                         getInput();
                     }
                 });

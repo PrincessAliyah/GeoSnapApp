@@ -283,7 +283,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 ArrayList<CameraStation> Clist= load();
                 if (Clist.size()==0){
-                    createToast(getContext(),"No camera stations saved", Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(),"No camera stations saved", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Fireload(Clist);
@@ -408,19 +408,19 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                 switch(checkedId) {
                     case R.id.radioButtonSkunkId:
                         lureType = "Skunk + Fish Oil";
-                        Toast.makeText(getActivity(), "Lure Type You Selected Skunk + Fish Oil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Lure Type: You Selected Skunk + Fish Oil", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonCastorId:
                         lureType = "Castor + Fish Oil";
-                        Toast.makeText(getActivity(), "Lure Type You Selected Castor + Fish Oil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Lure Type: You Selected Castor + Fish Oil", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonFishId:
                         lureType = "Fish Oil";
-                        Toast.makeText(getActivity(), "Lure Type You Selected Fish Oil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Lure Type: You Selected Fish Oil", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonNoneId:
                         lureType = "None";
-                        Toast.makeText(getActivity(), "Lure Type You Selected None", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Lure Type: You Selected None", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -435,23 +435,23 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                 switch(checkedId) {
                     case R.id.radioButtonScrubId:
                         habitat = "Scrub";
-                        Toast.makeText(getActivity(), "Habitat You Selected Scrub", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Habitat: You Selected Scrub", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonForestId:
                         habitat = "Forest";
-                        Toast.makeText(getActivity(), "Habitat You Selected Forest", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Habitat: You Selected Forest", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonPastureId:
                         habitat = "Pasture";
-                        Toast.makeText(getActivity(), "Habitat You Selected Pasture", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Habitat: You Selected Pasture", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonBarrenId:
                         habitat = "Barren";
-                        Toast.makeText(getActivity(), "Habitat You Selected Barren", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Habitat: You Selected Barren", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonAgricId:
                         habitat = "Agric";
-                        Toast.makeText(getActivity(), "Habitat You Selected Agric", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Habitat: You Selected Agric", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -466,27 +466,27 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                 switch(checkedId) {
                     case R.id.radioButtonRidgeId:
                         terrain = "Ridge";
-                        Toast.makeText(getActivity(), "Terrain You Selected Ridge", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Terrain: You Selected Ridge", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonCliffBaseId:
                         terrain = "Cliff Base";
-                        Toast.makeText(getActivity(), "Terrain You Selected Cliff Base", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Terrain: You Selected Cliff Base", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonDrawId:
                         terrain = "Draw";
-                        Toast.makeText(getActivity(), "Terrain You Selected Draw", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Terrain: You Selected Draw", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonValleyId:
                         terrain = "Valley";
-                        Toast.makeText(getActivity(), "Terrain You Selected Valley", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Terrain: You Selected Valley", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonSaddleId:
                         terrain = "Saddle";
-                        Toast.makeText(getActivity(), "Terrain You Selected Saddle", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Terrain: You Selected Saddle", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonPlateauId:
                         terrain = "Plateau";
-                        Toast.makeText(getActivity(), "Terrain You Selected Plateau", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Terrain: You Selected Plateau", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -501,23 +501,23 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                 switch(checkedId) {
                     case R.id.radioButtonSandId:
                         substrate= "Sand";
-                        Toast.makeText(getActivity(), "Substrate You Selected Sand", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Substrate: You Selected Sand", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonSoilId:
                         substrate= "Soil";
-                        Toast.makeText(getActivity(), "Substrate You Selected Soil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Substrate: You Selected Soil", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonRockId:
                         substrate= "Rock/Gravel";
-                        Toast.makeText(getActivity(), "Substrate You Selected Rock/Gravel", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Substrate: You Selected Rock/Gravel", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonSnowId:
                         substrate= "Snow";
-                        Toast.makeText(getActivity(), "Substrate You Selected Snow", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Substrate: You Selected Snow", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonVegetationId:
                         substrate= "Vegetation";
-                        Toast.makeText(getActivity(), "Substrate You Selected Vegetation", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Substrate: You Selected Vegetation", Toast.LENGTH_SHORT).show();
                         break;
 
                 }
@@ -532,15 +532,15 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                 switch(checkedId) {
                     case R.id.radioButtonGoodId:
                         potential = "Good";
-                        Toast.makeText(getActivity(), "Potential You Selected Good", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Potential: You Selected Good", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonMediumId:
                         potential = "Medium";
-                        Toast.makeText(getActivity(), "Potential You Selected Medium", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Potential: You Selected Medium", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButtonPoorId:
                         potential = "Poor";
-                        Toast.makeText(getActivity(), "Potential You Selected Poor", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Potential: You Selected Poor", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -567,40 +567,40 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
 
         //prevent some blank
         if (stationId.equals("")){
-            createToast(getContext(),"Station Id needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Station ID needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if(watershedid.equals("")){
-            createToast(getContext(),"WaterShed Id needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"WaterShed ID needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if(cameraId.equals("")){
-            createToast(getContext(),"Camera Id needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Camera ID needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if(terrain==null){
-            createToast(getContext(),"Terrain needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Terrain needed",Toast.LENGTH_LONG).show();
             return false;
 
         }
         else if (habitat==null){
-            createToast(getContext(),"Habitat needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Habitat needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if (lureType==null){
-            createToast(getContext(),"Lure Type needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Lure Type needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if(substrate==null){
-            createToast(getContext(),"Station Id needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Station ID needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if(potential==null){
-            createToast(getContext(),"Potential needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"Potential needed",Toast.LENGTH_LONG).show();
             return false;
         }
         else if(sdcard.equals("")){
-            createToast(getContext(),"SD card  ID needed",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(),"SD card ID needed",Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
@@ -642,7 +642,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
             public void onClick(DialogInterface dialog, int id) {
                 //check has some blank or not
                 if(getInput()){
-                    createToast(getActivity(),"Create Station Successful :"+currentTime.toString(), Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(),"Create Station Successful :"+currentTime.toString(), Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(getActivity(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
@@ -687,7 +687,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
             return new ArrayList<>();
         }
         else{
-            createToast(getContext(), "CameraStations here",Toast.LENGTH_LONG);
+            Toast.makeText(getContext(), "Camera Stations here",Toast.LENGTH_LONG).show();
 
             Type type = new TypeToken<ArrayList<CameraStation>>() {}.getType();
             return gson.fromJson(json,type);
@@ -793,7 +793,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                     String count = counter.toString();
                     Integer size = list.size();
                     String rem = size.toString();
-                    createToast(getActivity(), count + " stations sent to firebase " + rem + " stations remain", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), count + " stations sent to firebase " + rem + " stations remain", Toast.LENGTH_SHORT).show();
 
                 }
             });

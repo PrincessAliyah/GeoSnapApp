@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragmentAdapter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -62,6 +64,11 @@ public class StationListActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         recyclerView= findViewById(R.id.recyler2);
         CStationArrayList= new ArrayList<>();
+
+        ///listFragmentAdapter=new ListFragmentAdapter(CStationArrayList,this);
+        //recyclerView.setAdapter(listFragmentAdapter);
+        //LinearLayoutManager manager=new LinearLayoutManager(getApplicationContext());
+        //recyclerView.setLayoutManager(manager);
 
         tocsv = findViewById(R.id.CSVb);
         tocsv.bringToFront();

@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
             }
         });
-        //fragmentView = inflater.inflate(R.layout.fragment_profile, container, false);
+        //fragmentView = inflater.inflate(R.layout.fragment_Fprofile, container, false);
         logout = (Button) fragmentView.findViewById(R.id.logoutP);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,11 +31,10 @@ public class RebaitListActivity extends AppCompatActivity {
 
     //after list was already update, it create the adapter, put the list and show
     public void updateList(){
+        LinearLayoutManager manager =new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(manager);
         Rebait_ListAdapter listAdapter=new Rebait_ListAdapter(CRebaitArrayList,this);
         recyclerView.setAdapter(listAdapter);
-        LinearLayoutManager a=new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(a);
-
 
     }
 }

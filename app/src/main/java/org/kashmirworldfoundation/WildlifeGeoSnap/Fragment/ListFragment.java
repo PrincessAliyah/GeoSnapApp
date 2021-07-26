@@ -79,6 +79,13 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
         recyclerView=ListFragment.findViewById(R.id.recyler);
         CStationArrayList= new ArrayList<>();
 
+        listFragmentAdapter=new ListFragmentAdapter(CStationArrayList,this);
+        recyclerView.setAdapter(listFragmentAdapter);
+        LinearLayoutManager manager=new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(manager);
+
+
+
 
 
 

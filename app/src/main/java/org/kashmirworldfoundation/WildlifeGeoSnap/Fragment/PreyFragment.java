@@ -83,6 +83,12 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
         PreyFragment =inflater.inflate(R.layout.fragment_prey, container, false);
         recyclerView=PreyFragment.findViewById(R.id.recyler3);
         CPreyArrayList= new ArrayList<>();
+
+        preyFragmentAdapter=new PreyFragmentAdapter(CPreyArrayList,this);
+        recyclerView.setAdapter(preyFragmentAdapter);
+        LinearLayoutManager manager=new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(manager);
+
         AddPrey=PreyFragment.findViewById(R.id.PreyAdd);
 
         UploadPrey=PreyFragment.findViewById(R.id.PreyUpload);

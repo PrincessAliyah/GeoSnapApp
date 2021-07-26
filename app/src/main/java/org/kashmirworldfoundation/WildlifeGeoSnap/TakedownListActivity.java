@@ -31,11 +31,10 @@ public class TakedownListActivity extends AppCompatActivity {
 
     //after list was already update, it create the adapter, put the list and show
     public void updateList(){
+        LinearLayoutManager manager =new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(manager);
         Takedown_ListAdapter listAdapter=new Takedown_ListAdapter(CTakedownArrayList,this);
         recyclerView.setAdapter(listAdapter);
-        LinearLayoutManager a=new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(a);
-
 
     }
 }

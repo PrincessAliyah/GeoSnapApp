@@ -10,8 +10,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         multiDexEnabled true
-        versionCode 7
-        versionName "7.0"
+        versionCode 10
+        versionName "10.0"
         ndk {
             debugSymbolLevel 'FULL'
         }
@@ -30,6 +30,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            crunchPngs false // or true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

@@ -30,6 +30,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
@@ -109,6 +111,12 @@ public class Register extends AppCompatActivity {
                 }
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is required.");
+                    return;
+                }
+                Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
+                Matcher matcher = pattern.matcher(email);
+                if (!matcher.matches()){
+                    mEmail.setError("Invalid Email.");
                     return;
                 }
                 if(TextUtils.isEmpty(password)){
@@ -305,6 +313,7 @@ public class Register extends AppCompatActivity {
                             }
                         });
                     }
+
                 }
 
             });

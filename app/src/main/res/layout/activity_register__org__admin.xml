@@ -121,7 +121,7 @@
         android:backgroundTint="#FAFAFA"
         android:fontFamily="sans-serif"
         android:hint="Email:"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/blackColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"

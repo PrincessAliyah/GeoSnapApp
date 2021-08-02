@@ -108,7 +108,7 @@
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="Email:"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColor="@color/blackColor"
         android:textColorHint="@color/blackColor"
         app:layout_constraintEnd_toEndOf="parent"

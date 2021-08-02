@@ -29,6 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class RegisterOrgActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     EditText mEmail, mOrgname, mPhone, mOrgWebsite, mRegion;
@@ -84,6 +87,13 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                     mEmail.setError("Email Required.");
                     return;
                 }
+                Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
+                Matcher matcher = pattern.matcher(email);
+                if (!matcher.matches()){
+                    mEmail.setError("Invalid Email.");
+                    return;
+                }
+
 
                 if (TextUtils.isEmpty(website)){
                     mOrgWebsite.setError(("Website Required"));

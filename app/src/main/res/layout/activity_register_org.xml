@@ -174,7 +174,7 @@
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="Organization Email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/blackColor"
         app:layout_constraintBottom_toTopOf="@+id/orgwebsite"
         app:layout_constraintEnd_toEndOf="parent"

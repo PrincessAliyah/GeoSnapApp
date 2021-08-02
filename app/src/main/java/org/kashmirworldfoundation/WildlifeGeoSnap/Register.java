@@ -113,7 +113,7 @@ public class Register extends AppCompatActivity {
                     mEmail.setError("Email is required.");
                     return;
                 }
-                Pattern pattern = Pattern.compile(".+@.+\\.[a-z]+");
+                Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                 Matcher matcher = pattern.matcher(email);
                 if (!matcher.matches()){
                     mEmail.setError("Invalid Email.");

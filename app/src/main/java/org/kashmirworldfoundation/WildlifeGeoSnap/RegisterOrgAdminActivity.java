@@ -26,10 +26,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class RegisterOrgAdminActivity extends AppCompatActivity {
-    EditText mEmail, mPassword, mPhone, mJob,mName;
+    EditText mEmail, mPassword, mPassword2, mPhone, mJob,mName;
     Button mbRegisterA;
     FirebaseAuth fAuth2;
     FirebaseFirestore db2;
@@ -42,6 +44,7 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
         mbRegisterA = findViewById(R.id.AdminRegisterB);
         mEmail = findViewById(R.id.AdminEmail);
         mPassword = findViewById(R.id.AdminPassword);
+        mPassword2 = findViewById(R.id.AdminPassword2);
         mPhone = findViewById(R.id.AdminPhone);
         mJob = findViewById(R.id.AdminJob);
         mName =findViewById(R.id.AdminName);
@@ -95,6 +98,7 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
         final String Aname = mName.getText().toString().trim();
         final String Aemail = mEmail.getText().toString().trim();
         final String Apassword = mPassword.getText().toString().trim();
+        final String Apassword2 = mPassword2.getText().toString().trim();
         final String Ajob = mJob.getText().toString().trim();
         final String Aphone = mPhone.getText().toString().trim();
         St2 = FirebaseStorage.getInstance();
@@ -109,8 +113,21 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
         if(Aemail.isEmpty()){
             emptytoast(getApplicationContext());
         }
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matcher = pattern.matcher(Aemail);
+        if (!matcher.matches()){
+            mEmail.setError("Invalid Email.");
+            return;
+        }
         if(Apassword.isEmpty()){
             emptytoast(getApplicationContext());
+        }
+        if(Apassword2.isEmpty()){
+            emptytoast(getApplicationContext());
+        }
+        if (!Apassword.equals(Apassword2))
+        {
+            Toast.makeText(RegisterOrgAdminActivity.this, "Password do not match", Toast.LENGTH_SHORT).show();
         }
         if(Ajob.isEmpty()){
             emptytoast(getApplicationContext());

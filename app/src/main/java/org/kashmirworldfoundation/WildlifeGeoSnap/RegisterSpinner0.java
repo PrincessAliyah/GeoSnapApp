@@ -56,6 +56,8 @@ public class RegisterSpinner0 extends AppCompatActivity {
 
         ref=db.collection("Organization");
 
+
+
         final Set<String> set = new LinkedHashSet<>();
 
         final ArrayAdapter<String> dataAdapter= new ArrayAdapter(this,android.R.layout.simple_spinner_item, orgs);
@@ -114,7 +116,14 @@ public class RegisterSpinner0 extends AppCompatActivity {
                     orgs=new ArrayList<>(set);
 
                     orgs.add(0,"Select Org");
-                    dataAdapter.addAll(orgs);
+                    for(int i = 0; i < orgs.size();i++){
+                        if(orgs.get(i) == null){
+                        }
+                        else{
+                            dataAdapter.add(orgs.get(i));
+                        }
+                    }
+
 
                 }
             }
@@ -127,7 +136,6 @@ public class RegisterSpinner0 extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Sorg = parent.getItemAtPosition(position).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub

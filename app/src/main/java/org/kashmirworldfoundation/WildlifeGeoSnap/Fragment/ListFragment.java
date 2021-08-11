@@ -213,7 +213,7 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
         for (String stud:Studies){
             out=out+stud+", ";
         }
-        out+="Scheduled to be deleted in a week or less";
+        out+="scheduled to be deleted in a week or less";
         alertDialog.setMessage(out);
 
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {

@@ -22,7 +22,7 @@
         <activity
             android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterOrgAdminActivity"
             android:label="@string/title_activity_register__org__admin"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"  android:hasCode="true"></activity>
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.StationListActivity" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.CreateStudy" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.GoogleMapActivity" /> <!-- <activity android:name=".Expand2" /> -->

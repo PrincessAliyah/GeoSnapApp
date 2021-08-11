@@ -163,7 +163,7 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                                     });
                                 }
                                 else{
-                                    Toast.makeText(RegisterOrgActivity.this,"Error Organization already registered",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterOrgActivity.this,"This email is already being used for another organization",Toast.LENGTH_LONG).show();
                                     Log.e("Tag","Fail2");
                                     recreate();
                                 }

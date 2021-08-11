@@ -94,10 +94,10 @@ public class StationAsyncTask extends AsyncTask<String, Void, String> {
 
                                     if(count==size){
                                         update();
-                                        if(stations.isEmpty()==false){
+                                        if(!stations.isEmpty()){
                                             listFragment.studyMiss(stations,listFragment);
                                         }
-                                        if (paths.isEmpty()==false){
+                                        if (!paths.isEmpty()){
                                             for(Pair<String,String> stuff: paths){
                                                 new DeleteAsyncTask(stuff.first,stuff.second,mem).execute();
                                             }

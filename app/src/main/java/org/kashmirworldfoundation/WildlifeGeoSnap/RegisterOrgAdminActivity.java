@@ -186,6 +186,9 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else {
+                    Toast.makeText(RegisterOrgAdminActivity.this, "onComplete: Failed=" + task.getException().getMessage(), Toast.LENGTH_LONG ).show();
+                }
             }
         });
     }

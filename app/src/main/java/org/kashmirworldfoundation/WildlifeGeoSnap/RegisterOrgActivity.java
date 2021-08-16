@@ -148,8 +148,8 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                                         public void onComplete(@NonNull Task<DocumentReference> task) {
 
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(RegisterOrgActivity.this,"Organization Sucesfully Created",Toast.LENGTH_LONG).show();
-                                                Log.e("Tag", "Sucess 1");
+                                                Toast.makeText(RegisterOrgActivity.this,"Organization Succesfully Created",Toast.LENGTH_LONG).show();
+                                                Log.e("Tag", "Success 1");
                                                 saveAdmin();
                                                 sendMessage(Orgname,phone,website,country,region);
                                                 startActivity(i);

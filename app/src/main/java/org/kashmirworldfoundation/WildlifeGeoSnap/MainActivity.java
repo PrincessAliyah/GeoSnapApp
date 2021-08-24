@@ -2,10 +2,13 @@ package org.kashmirworldfoundation.WildlifeGeoSnap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -19,11 +22,13 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -35,10 +40,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.jetbrains.annotations.NotNull;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AddFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.MapFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.PreyFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment;
+import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.StationAsyncTask;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,16 +53,8 @@ import java.io.InputStream;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MainActivity extends AppCompatActivity {
-
-    BottomNavigationView bottomNavigationView;
-    private Toolbar toolbar;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private ListFragment listFragment;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AddFragment addFragment;
-    private ProfileFragment profileFragment;
-
     private FusedLocationProviderClient mFusedLocationClient;
     private static final int LOCATION_REQUEST = 111;
     private static final String TAG = "MainActivity";
@@ -70,142 +69,86 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String ELEVATION_API_KEY="AIzaSyBh-rFSAH9QqPtUrLXcT5Z0c2ZQiJUWkTc";
 
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        toolbar = findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        viewPager = findViewById(R.id.view_pager);
-        tabLayout = findViewById(R.id.tab_layout);
+
+        drawer = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         addFragment = new AddFragment();
-        tabLayout.setupWithViewPager(viewPager);
 
-        // Setting up Tabs
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-//        viewPagerAdapter.addFragment(listFragment, "List");
-//        viewPagerAdapter.addFragment(addFragment, "Add");
-//        viewPagerAdapter.addFragment(profileFragment, "Profile");
+        drawer.addDrawerListener(toggle);
 
-        viewPager.setAdapter(viewPagerAdapter);
-        // Icons
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_list);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_add);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_profile);
-        tabLayout.getTabAt(3).setIcon(R.drawable.mouse);
-        tabLayout.getTabAt(4).setIcon(R.drawable.ic_map);
+        toggle.syncState();
 
-        tabLayout.getTabAt(0);
-
-        // Badges
-        //BadgeDrawable badgeDrawable = tabLayout.getTabAt(0).getOrCreateBadge();
-        //badgeDrawable.setVisible(true);
-        //badgeDrawable.setNumber(10);
-        //exceptions will be thrown if provider is not permitted.
-
-
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new ProfileFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_profile);
+        }
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabSelected: " + tab.getContentDescription());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabUnselected: " + tab.getContentDescription());
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                Log.d(TAG, "onTabReselected: " + tab.getContentDescription());
-            }
-        });
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item){
+        switch (item.getItemId()){
 
+            case R.id.nav_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new ProfileFragment()).commit();
+                break;
+            case R.id.nav_add:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AddFragment()).commit();
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new MapFragment()).commit();
+                break;
+            case R.id.nav_prey:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new PreyFragment()).commit();
+                break;
+            case R.id.nav_list:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();
+                break;
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+                break;
+        }
 
-
-
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        finish();
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        public ViewPagerAdapter(@NonNull FragmentManager fm) {
-            super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        }
-
-        private org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment listFragment;
-        private ProfileFragment profileFragment;
-        private MapFragment mapFragment;
-        private PreyFragment preyFragment;
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    if (listFragment == null) {
-                        listFragment = org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment.newInstance();
-                    }
-                    return listFragment;
-                case 1:
-                    determineLocation();
-                    return addFragment;
-                case 2:
-                    if (profileFragment == null) {
-                        profileFragment = ProfileFragment.newInstance();
-                    }
-                    return profileFragment;
-                case 3:
-                    if (preyFragment==null) {
-                        preyFragment = PreyFragment.newInstance();
-                    }
-                    return preyFragment;
-
-                default:
-                    if (mapFragment == null) {
-                        mapFragment = MapFragment.newInstance();
-                    }
-                    return mapFragment;
-
-
-            }
-        }
-
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "List";
-                case 1:
-                    return "Add";
-                case 2:
-                    return "Profile";
-                case 3:
-                    return "Prey";
-
-                default:
-                    return "Map";
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 5;
+    @Override
+    public void onBackPressed(){
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        } else{
+            super.onBackPressed();
         }
     }
 
@@ -232,8 +175,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 
     private double getElevationFromGoogleMaps(double longitude, double latitude) {
         double result = Double.NaN;

@@ -31,26 +31,33 @@
             android:parentActivityName="org.kashmirworldfoundation.WildlifeGeoSnap.MainActivity" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.MapCreateList" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.MapCreateActivity" />
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterOrgActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterOrgActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.CreateStationActivity" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.MainActivity" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.OfflineManagerActivity" />
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner1" />
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner2" />
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner0" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner1"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner2"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RegisterSpinner0"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.RebaitListActivity"></activity>
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.TakedownListActivity"></activity>
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.ForgetPasswordActivity"></activity>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.ForgetPasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.PreyExpand" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.AddPreyActivity" />
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.LoginActivity">
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.Register"></activity>
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.Register"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

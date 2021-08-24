@@ -11,7 +11,6 @@
         android:id="@+id/Background_Profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
         android:visibility="visible"
         tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment">
 
@@ -24,6 +23,8 @@
             android:layout_height="33dp"
             android:layout_marginTop="120dp"
             android:text="TextView"
+            android:textColor="@color/whiteColor"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ProfilePic" />
@@ -34,6 +35,8 @@
             android:layout_height="33dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
+            android:textColor="@color/whiteColor"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PhoneP" />
@@ -44,6 +47,8 @@
             android:layout_height="33dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
+            android:textColor="@color/whiteColor"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EmailP" />
@@ -60,15 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/AdminP"
             app:layout_constraintVertical_bias="0.376" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/ProfilePic"
@@ -79,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/EmailP"
@@ -87,6 +84,8 @@
             android:layout_height="33dp"
             android:layout_marginTop="24dp"
             android:text="TextView"
+            android:textColor="@color/whiteColor"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"

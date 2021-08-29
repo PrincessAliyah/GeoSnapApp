@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 
 
 public class RegisterOrgActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    EditText mEmail, mOrgname, mPhone, mOrgWebsite, mRegion;
+    EditText mEmail, mOrgname, mPhone, mOrgWebsite;
     Button mbRegister;
     TextView mbLogin;
     FirebaseAuth fAuth;
@@ -52,7 +52,7 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
 
         mbLogin = findViewById(R.id.logindr);
         mbRegister = findViewById(R.id.RegisterB);
-        mRegion = findViewById(R.id.Region);
+        // mRegion = findViewById(R.id.Region);
         fAuth = FirebaseAuth.getInstance();
 
         final Spinner spinner = findViewById(R.id.countries);
@@ -77,7 +77,7 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                 String website = mOrgWebsite.getText().toString().trim();
                 String phone = mPhone.getText().toString().trim();
                 String country =spinner.getSelectedItem().toString().trim();
-                String region = mRegion.getText().toString().trim();
+                //String region = mRegion.getText().toString().trim();
                 if(TextUtils.isEmpty(Orgname)){
                     mOrgname.setError("Orgname Required");
                     return;
@@ -108,16 +108,16 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                     Toast.makeText(RegisterOrgActivity.this, "Need to select a country", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(region)){
+/*                if (TextUtils.isEmpty(region)){
                     mRegion.setError("Region Required");
                     return;
-                }
+                }*/
 
                 db=FirebaseFirestore.getInstance();
 
                 final Org morg = new Org();
                 morg.setOrgCountry(country);
-                morg.setOrgRegion(region);
+                //morg.setOrgRegion(region);
                 morg.setOrgName(Orgname);
                 morg.setOrgWebsite(website);
                 morg.setOrgPhone(phone);
@@ -132,12 +132,12 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
 //Add your data to bundle
                 bundle.putString("Orgname", Orgname);
                 bundle.putString("Country", country);
-                bundle.putString("Region", region);
+                //bundle.putString("Region", region);
 
 //Add the bundle to the intent
                 i.putExtras(bundle);
 
-                db.collection("Organization").whereEqualTo("orgName",Orgname).whereEqualTo("orgCountry",country).whereEqualTo("orgRegion",region).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("Organization").whereEqualTo("orgName",Orgname).whereEqualTo("orgCountry",country).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
@@ -148,10 +148,12 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                                         public void onComplete(@NonNull Task<DocumentReference> task) {
 
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(RegisterOrgActivity.this,"Organization Succesfully Created",Toast.LENGTH_LONG).show();
+                                                Toast.makeText(RegisterOrgActivity.this,"Organization Successfully Created",Toast.LENGTH_LONG).show();
                                                 Log.e("Tag", "Success 1");
                                                 saveAdmin();
-                                                sendMessage(Orgname,phone,website,country,region);
+                                                // sendMessage(Orgname,phone,website,country);
+                                                // sendMessage(Orgname,phone,website,country,region);
+
                                                 startActivity(i);
                                             }
                                             else{
@@ -174,26 +176,10 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                     }
                 });
 
-
-
-//Fire that second activity
-
-
-
+            //Fire that second activity
 
             }
-
-
-
-
-
-
         });
-
-
-
-
-
     }
     public String capitalizeFirstLetter(String string) {
         string =string.toLowerCase();
@@ -209,13 +195,13 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    private void sendMessage(final String orgname, final String phone, final String website, final String country,final String region) {
+    private void sendMessage(final String orgname, final String phone, final String website, final String country) {
         final ProgressDialog dialog = new ProgressDialog(RegisterOrgActivity.this);
         dialog.setTitle("Sending Email");
         dialog.setMessage("Please wait");
         dialog.show();
         Thread sender = new Thread(new Runnable() {
-            String Body="Orgname = " +orgname +" \n phone = " + phone+ "\n website =" + website + "\nCountry = " + country + "\nRegion = " + region;
+            String Body="Orgname = " +orgname +" \n phone = " + phone+ "\n website =" + website + "\nCountry = " + country;
             String subject = orgname + " wants to register under KWF app ";
 
             public void run() {

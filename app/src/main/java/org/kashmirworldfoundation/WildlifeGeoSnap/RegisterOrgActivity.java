@@ -24,10 +24,18 @@ import com.google.android.gms.tasks.Task;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -72,13 +80,13 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
         mbRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Orgname = mOrgname.getText().toString().trim();
+                String orgName = mOrgname.getText().toString().trim();
                 String email = mEmail.getText().toString().trim();
                 String website = mOrgWebsite.getText().toString().trim();
                 String phone = mPhone.getText().toString().trim();
                 String country =spinner.getSelectedItem().toString().trim();
                 //String region = mRegion.getText().toString().trim();
-                if(TextUtils.isEmpty(Orgname)){
+                if(TextUtils.isEmpty(orgName)){
                     mOrgname.setError("Orgname Required");
                     return;
                 }
@@ -93,7 +101,6 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                     mEmail.setError("Invalid Email.");
                     return;
                 }
-
 
                 if (TextUtils.isEmpty(website)){
                     mOrgWebsite.setError(("Website Required"));
@@ -118,26 +125,46 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                 final Org morg = new Org();
                 morg.setOrgCountry(country);
                 //morg.setOrgRegion(region);
-                morg.setOrgName(Orgname);
+                morg.setOrgName(orgName);
                 morg.setOrgWebsite(website);
                 morg.setOrgPhone(phone);
                 morg.setOrgEmail(email);
-
-
 
                 final Intent i = new Intent(getApplicationContext(), RegisterOrgAdminActivity.class);
 //Create the bundle
                 Bundle bundle = new Bundle();
 
 //Add your data to bundle
-                bundle.putString("Orgname", Orgname);
+                bundle.putString("Orgname", orgName);
                 bundle.putString("Country", country);
                 //bundle.putString("Region", region);
 
 //Add the bundle to the intent
                 i.putExtras(bundle);
 
-                db.collection("Organization").whereEqualTo("orgName",Orgname).whereEqualTo("orgCountry",country).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+// Check if orgname has already been registered(exists in FireBase database already)
+/*                DatabaseReference rootRef=FirebaseDatabase.getInstance().getReference();
+                Query query = rootRef.child("Organization").orderByChild("orgName").equalTo(orgName);
+
+                query.addValueEventListener(new ValueEventListener(){
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot){
+                        if(dataSnapshot.exists()) {
+                            //username exist
+                            Toast.makeText(RegisterOrgActivity.this,"This organization already registered",Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(RegisterOrgActivity.this,"Looks good",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });*/
+
+
+                db.collection("Organization").whereEqualTo("orgName",orgName).whereEqualTo("orgCountry",country).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()){
@@ -165,7 +192,7 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                                     });
                                 }
                                 else{
-                                    Toast.makeText(RegisterOrgActivity.this,"This email is already being used for another organization",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(RegisterOrgActivity.this,"This organization has already been registered.",Toast.LENGTH_LONG).show();
                                     Log.e("Tag","Fail2");
                                     recreate();
                                 }
@@ -175,7 +202,6 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
                         }
                     }
                 });
-
             //Fire that second activity
 
             }
@@ -224,7 +250,6 @@ public class RegisterOrgActivity extends AppCompatActivity implements AdapterVie
     private void saveAdmin(){
         SharedPreferences sharedPreferences = RegisterOrgActivity.this.getSharedPreferences("Admin", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor =sharedPreferences.edit();
-
 
         Gson gson = new Gson();
 

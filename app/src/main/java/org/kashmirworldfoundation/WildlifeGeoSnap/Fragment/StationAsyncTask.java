@@ -18,7 +18,6 @@ import org.kashmirworldfoundation.WildlifeGeoSnap.DeleteAsyncTask;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Member;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Study;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,7 +60,7 @@ public class StationAsyncTask extends AsyncTask<String, Void, String> {
         Calendar c= Calendar.getInstance();
         Date currentTime = c.getTime();
 
-        c.add(Calendar.DATE,7);
+        c.add(Calendar.DATE,-90);
         Date prevTime=c.getTime();
         final Date[] end1 = new Date[1];
         final ArrayList<Pair<String,String> >paths=new ArrayList();
@@ -83,7 +82,7 @@ public class StationAsyncTask extends AsyncTask<String, Void, String> {
                                         if (end1[0].compareTo(prevTime) < 0) {
                                             stations.add(stat.getTitle());
                                         }
-                                        if (end1[0].compareTo(currentTime) < 0) {
+                                        if (end1[0].compareTo(prevTime) <= 0) {
                                             Log.e(TAG, stat.getTitle() + "/n" + end1[0].toString() + "/n" + currentTime.toString());
                                             paths.add(new Pair<>(objectDocumentSnapshot.getReference().getPath(), stat.getTitle()));
                                         }
@@ -95,7 +94,7 @@ public class StationAsyncTask extends AsyncTask<String, Void, String> {
                                     if(count==size){
                                         update();
                                         if(!stations.isEmpty()){
-                                            listFragment.studyMiss(stations,listFragment);
+//                                            listFragment.studyMiss(stations,listFragment);
                                         }
                                         if (!paths.isEmpty()){
                                             for(Pair<String,String> stuff: paths){

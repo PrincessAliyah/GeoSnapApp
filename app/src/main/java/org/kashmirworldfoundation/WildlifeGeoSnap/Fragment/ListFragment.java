@@ -206,27 +206,27 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
         tv.setTextColor(0xFFFFFFFF);
         toast.show();
     }
-    public static void studyMiss(ArrayList<String> Studies,ListFragment li){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
-        alertDialog.setTitle("Attention");
-        String out= "Studies ";
-        for (String stud:Studies){
-            out=out+stud+", ";
-        }
-        out+="scheduled to be deleted in a week or less";
-        alertDialog.setMessage(out);
-
-        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-
-
-            }
-        });
-        AlertDialog alert = alertDialog.create();
-        alert.show();
-    }
+//    public static void studyMiss(ArrayList<String> Studies,ListFragment li){
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
+//        alertDialog.setTitle("Attention");
+//        String out= "Studies ";
+//        for (String stud:Studies){
+//            out=out+stud+", ";
+//        }
+//        out+="scheduled to be deleted in a week or less111";
+//        alertDialog.setMessage(out);
+//
+//        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//
+//
+//            }
+//        });
+//        AlertDialog alert = alertDialog.create();
+//        alert.show();
+//    }
 
 
 

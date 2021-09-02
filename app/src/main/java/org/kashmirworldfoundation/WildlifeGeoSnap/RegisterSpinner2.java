@@ -69,7 +69,7 @@ public class RegisterSpinner2 extends AppCompatActivity {
                 }
                 for (Org org : Aorg){
 
-                    set.add(org.getOrgRegion());
+                    //set.add(org.getOrgRegion());
                 }
                 Regions=new ArrayList<>(set);
 

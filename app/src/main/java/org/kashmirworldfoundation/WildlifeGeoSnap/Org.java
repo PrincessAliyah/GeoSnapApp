@@ -6,16 +6,16 @@ public class Org {
     private String OrgName;
     private String OrgPhone;
     private String OrgCountry;
-    private String OrgRegion;
+    //private String OrgRegion;
 
 
-    public Org(String orgEmail, String orgWebsite, String orgName, String orgPhone, String orgCountry, String orgRegion) {
+    public Org(String orgEmail, String orgWebsite, String orgName, String orgPhone, String orgCountry) {
         OrgEmail = orgEmail;
         OrgWebsite = orgWebsite;
         OrgName = orgName;
         OrgPhone = orgPhone;
         OrgCountry = orgCountry;
-        OrgRegion = orgRegion;
+        //OrgRegion = orgRegion;
     }
 
     public Org(){
@@ -62,6 +62,7 @@ public class Org {
         OrgCountry = orgCountry;
     }
 
+    /*
     public String getOrgRegion() {
         return OrgRegion;
     }
@@ -69,4 +70,5 @@ public class Org {
     public void setOrgRegion(String orgRegion) {
         OrgRegion = orgRegion;
     }
+    */
 }

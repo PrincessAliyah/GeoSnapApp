@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/diann/StudioProjects/GeoSnapApp/app/src/main/res/layout/activity_create_station.xml" value="0.1" />
         <entry key="..\:/Users/diann/StudioProjects/GeoSnapApp/app/src/main/res/layout/activity_expand.xml" value="0.1" />
         <entry key="..\:/Users/diann/StudioProjects/GeoSnapApp/app/src/main/res/layout/activity_listfragment_recycler.xml" value="0.1" />
         <entry key="..\:/Users/diann/StudioProjects/GeoSnapApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/diann/StudioProjects/GeoSnapApp/app/src/main/res/layout/activity_station__list.xml" value="0.1" />
         <entry key="..\:/Users/diann/StudioProjects/GeoSnapApp/app/src/main/res/layout/fragment_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_register__org__admin.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_register_org.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_register_spinner0.xml" value="0.325" />
+        <entry key="app/src/main/res/layout/activity_register_spinner1.xml" value="0.325" />
+        <entry key="app/src/main/res/layout/activity_register_spinner2.xml" value="0.325" />
       </map>
     </option>
   </component>

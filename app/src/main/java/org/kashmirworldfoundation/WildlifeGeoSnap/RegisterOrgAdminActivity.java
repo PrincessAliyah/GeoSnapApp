@@ -105,7 +105,7 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
         db2  = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         final String Orgname =intent.getStringExtra("Orgname");
-        final String Region = intent.getStringExtra("Region");
+        //final String Region = intent.getStringExtra("Region");
         final String Country = intent.getStringExtra("Country");
         if(Aname.isEmpty()){
             emptytoast(getApplicationContext());
@@ -122,22 +122,30 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
         if(Apassword.isEmpty()){
             emptytoast(getApplicationContext());
         }
+        if(Apassword.length() < 6){
+            mPassword.setError("Password must be at least 6 characters.");
+            return;
+        }
         if(Apassword2.isEmpty()){
             emptytoast(getApplicationContext());
         }
         if (!Apassword.equals(Apassword2))
         {
             Toast.makeText(RegisterOrgAdminActivity.this, "Password do not match", Toast.LENGTH_SHORT).show();
+            //What's the difference between Toast and setting an Error?
+            //Apassword.setError("Password do not match."); //REASON: Apassword and mPassword... should it matter? will it cause a bug later?
+
+            //return;
+        }
+        // Password length must be >= 6 characters
+
+        if(Aphone.isEmpty()){
+            emptytoast(getApplicationContext());
         }
         if(Ajob.isEmpty()){
             emptytoast(getApplicationContext());
         }
-        if(Aphone.isEmpty()){
-            emptytoast(getApplicationContext());
-        }
-        if (Ajob.isEmpty()){
-            emptytoast(getApplicationContext());
-        }
+
         //Orgname= capitalizeFirstLetter(Orgname);
         //Region = capitalizeFirstLetter(Region);
         //Country = capitalizeFirstLetter(Country);
@@ -148,7 +156,7 @@ public class RegisterOrgAdminActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     db2.collection("Organization").whereEqualTo("orgName",Orgname).whereEqualTo("orgCountry",Country).
-                            whereEqualTo("orgRegion",Region).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()){

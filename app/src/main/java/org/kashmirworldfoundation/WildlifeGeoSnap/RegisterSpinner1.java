@@ -121,7 +121,7 @@ public class RegisterSpinner1 extends AppCompatActivity {
                     return;
                 }
                 //Add data to bundle
-                Intent i = new Intent(getApplicationContext(),RegisterSpinner2.class);
+                Intent i = new Intent(getApplicationContext(),Register.class);
                 Bundle b = new Bundle();
                 b.putString("OrgName", Sorg);
                 b.putString("Country",Scountry);

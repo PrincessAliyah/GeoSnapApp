@@ -37,7 +37,7 @@ public class Register extends AppCompatActivity {
 
 
     Org Forg;
-    EditText mFullName, mJobTitle, mOrganization, mEmail, mPassword, mReEnter, mPhonenumber,mRegion;
+    EditText mFullName, mJobTitle, mOrganization, mEmail, mPassword, mReEnter, mPhonenumber;
     Button mRegisterBtn;
     TextView mLoginBtn,mRegisterOrgB;
     FirebaseAuth fAuth;
@@ -95,7 +95,7 @@ public class Register extends AppCompatActivity {
                 final String phoneNumber = mPhonenumber.getText().toString().trim();
                 final String job = mJobTitle.getText().toString().trim();
                 final String organization = i.getStringExtra("OrgName");
-                final String region =i.getStringExtra("Region");
+                //final String region =i.getStringExtra("Region");
                 final String country = i.getStringExtra("Country");
                 if(TextUtils.isEmpty(fullName)){
                     mFullName.setError("Full name is required.");
@@ -105,10 +105,7 @@ public class Register extends AppCompatActivity {
                     mOrganization.setError("Organization is required.");
                     return;
                 }
-                if(TextUtils.isEmpty(phoneNumber)){
-                    mPhonenumber.setError("Phone number is required.");
-                    return;
-                }
+
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email is required.");
                     return;
@@ -119,14 +116,29 @@ public class Register extends AppCompatActivity {
                     mEmail.setError("Invalid Email.");
                     return;
                 }
+
+                if(TextUtils.isEmpty(phoneNumber)){
+                    mPhonenumber.setError("Phone number is required.");
+                    return;
+                }
                 if(TextUtils.isEmpty(password)){
                     mPassword.setError("Password is required.");
                     return;
                 }
                 if(password.length() < 6){
-                    mPassword.setError("Password must be at least 6 characters");
+                    mPassword.setError("Password must be at least 6 characters.");
                     return;
                 }
+                if(TextUtils.isEmpty(reEnter)){
+                    mReEnter.setError("Re-enter password.");
+                    return;
+                }
+                if(!reEnter.equals(password)){
+                    mReEnter.setError("Password do not match.");
+                    return;
+                }
+
+
                 Utils util = new Utils();
 
 
@@ -151,14 +163,14 @@ public class Register extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
 
                             util.setAgreement(Register.this);
-                            register(organization,country,region);
+                            register(organization,country);
                         }
                     });
                     AlertDialog alert = alertDialog.create();
                     alert.show();
                 }
                 else {
-                    register(organization,country,region);
+                    register(organization,country);
                 }
 
 
@@ -218,7 +230,7 @@ public class Register extends AppCompatActivity {
         editor.apply();
     }
 
-    private void register(String organization, String country, String region){
+    private void register(String organization, String country){
         final Member mem =new Member();
         final String email = mEmail.getText().toString().trim();
         final String password = mPassword.getText().toString().trim();
@@ -234,7 +246,7 @@ public class Register extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         db.collection("Organization").whereEqualTo("orgName", organization).
-                                whereEqualTo("orgCountry", country).whereEqualTo("orgRegion", region).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                whereEqualTo("orgCountry", country).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {

@@ -37,6 +37,8 @@ import org.kashmirworldfoundation.WildlifeGeoSnap.Study;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 import android.widget.Toast;
@@ -70,6 +72,18 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
     private FileOutputStream fstream;
 
     private int option=0;
+
+//    SharedPreferences sharedPreferencesOneDay = getContext().getSharedPreferences("PREFS", 0);
+//    SharedPreferences sharedPreferencesTwoDays = getContext().getSharedPreferences("PREFS", 0);
+//    SharedPreferences sharedPreferencesOneMonth = getContext().getSharedPreferences("PREFS", 0);
+//    SharedPreferences sharedPreferencesTwoMonths = getContext().getSharedPreferences("PREFS", 0);
+//    SharedPreferences sharedPreferencesThreeMonths = getContext().getSharedPreferences("PREFS", 0);
+//
+//    Boolean ifShowDialogOneDay = sharedPreferencesOneDay.getBoolean("studyMissOneDay", true);
+//    Boolean ifShowDialogTwoDays = sharedPreferencesTwoDays.getBoolean("studyMissTwoDays", true);
+//    Boolean ifShowDialogOneMonth = sharedPreferencesOneMonth.getBoolean("studyMissOneMonth", true);
+//    Boolean ifShowDialogTwoMonths = sharedPreferencesTwoMonths.getBoolean("studyMissTwoMonths", true);
+//    Boolean ifShowDialogThreeMonths = sharedPreferencesThreeMonths.getBoolean("studyMissThreeMonths", true);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,6 +119,10 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
         pos =recyclerView.getChildLayoutPosition(v);
         Study selectiion=CStationArrayList.get(pos);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+
+
+
+
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -206,6 +224,9 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
         tv.setTextColor(0xFFFFFFFF);
         toast.show();
     }
+
+
+
 //    public static void studyMiss(ArrayList<String> Studies,ListFragment li){
 //        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
 //        alertDialog.setTitle("Attention");
@@ -228,6 +249,121 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
 //        alert.show();
 //    }
 
+    public void studyMissOneDay(ArrayList<String> Studies, ListFragment li){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
+        alertDialog.setTitle("Attention");
+        String out= "Studies ";
+        for (String stud:Studies){
+            out=out+stud+", ";
+        }
+        out+="scheduled to be deleted in one day.";
+        alertDialog.setMessage(out);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
+    public void studyMissTwoDays(ArrayList<String> Studies, ListFragment li){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
+        alertDialog.setTitle("Attention");
+        String out= "Studies ";
+        for (String stud:Studies){
+            out=out+stud+", ";
+        }
+        out+="scheduled to be deleted in two days.";
+        alertDialog.setMessage(out);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
+    public void studyMissOneMonth(ArrayList<String> Studies, ListFragment li){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
+        alertDialog.setTitle("Attention");
+        String out= "Studies ";
+        for (String stud:Studies){
+            out=out+stud+", ";
+        }
+        out+="scheduled to be deleted in one month.";
+        alertDialog.setMessage(out);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
+    public void studyMissTwoMonths(ArrayList<String> Studies, ListFragment li){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
+        alertDialog.setTitle("Attention");
+        String out= "Studies ";
+        for (String stud:Studies){
+            out=out+stud+", ";
+        }
+        out+="scheduled to be deleted in two months.";
+        alertDialog.setMessage(out);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
+    public void studyMissThreeMonths(ArrayList<String> Studies, ListFragment li){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(li.getContext());
+        alertDialog.setTitle("Attention");
+        String out= "Studies ";
+        for (String stud:Studies){
+            out=out+stud+", ";
+        }
+        out+="scheduled to be deleted in three months.";
+        alertDialog.setMessage(out);
+
+        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+
+
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
 
 
 }

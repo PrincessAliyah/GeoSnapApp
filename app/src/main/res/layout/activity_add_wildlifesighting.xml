@@ -5,29 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.AddPreyActivity">
+    tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.AddWildlifeSightingActivity">
 
     <TextView
-        android:id="@+id/PreyLattitudeLabel"
+        android:id="@+id/SightingLatitudeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif"
-        android:text="Lattitude"
+        android:text="Latitude"
         android:textColor="#FFFFFF"
         android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PreyTitleLabel"
+        app:layout_constraintTop_toBottomOf="@+id/SightingTitleLabel"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/AddPreyLabel"
+        android:id="@+id/AddSightingLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif"
-        android:text="Add Prey"
+        android:text="Add Wildlife Sighting"
         android:textColor="#FFFFFF"
         android:textSize="24dp"
         android:visibility="visible"
@@ -37,13 +37,13 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/PreyTitleLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
+        android:id="@+id/SightingTitleLabel"
+        android:layout_width="93dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="128dp"
         android:fontFamily="sans-serif"
-        android:text="Prey"
+        android:text="Sighting"
         android:textColor="#FFFFFF"
         android:textSize="24dp"
         android:visibility="visible"
@@ -63,7 +63,7 @@
         android:textSize="24dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PreyLattitudeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/SightingLatitudeLabel"
         tools:visibility="visible" />
 
     <TextView
@@ -82,7 +82,7 @@
         tools:visibility="visible" />
 
     <EditText
-        android:id="@+id/PreyTitleInput"
+        android:id="@+id/SightingTitleInput"
         android:layout_width="225dp"
         android:layout_height="29dp"
 
@@ -93,11 +93,11 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/AddPreyLabel"
+        app:layout_constraintTop_toBottomOf="@+id/AddSightingLabel"
         tools:visibility="visible" />
 
     <EditText
-        android:id="@+id/PreyLattitudeInput"
+        android:id="@+id/SightingLatitudeInput"
         android:layout_width="225dp"
         android:layout_height="29dp"
 
@@ -108,11 +108,11 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/PreyTitleInput"
+        app:layout_constraintTop_toBottomOf="@+id/SightingTitleInput"
         tools:visibility="visible" />
 
     <EditText
-        android:id="@+id/PreyLongitudeInput"
+        android:id="@+id/SightingLongitudeInput"
         android:layout_width="225dp"
         android:layout_height="29dp"
 
@@ -123,7 +123,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/PreyLattitudeInput"
+        app:layout_constraintTop_toBottomOf="@+id/SightingLatitudeInput"
         tools:visibility="visible" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -134,19 +134,19 @@
         app:layout_constraintGuide_begin="142dp" />
 
     <Button
-        android:id="@+id/PreyAddBtn"
+        android:id="@+id/SightingAddBtn"
         android:layout_width="360dp"
         android:layout_height="55dp"
         android:layout_marginTop="32dp"
-        android:text="Add Prey"
+        android:text="Add Wildlife Sighting"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PreyNoteInput"
+        app:layout_constraintTop_toBottomOf="@+id/SightingNoteInput"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/PreyBack"
+        android:id="@+id/SightingBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -156,10 +156,10 @@
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PreyAddBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/SightingAddBtn" />
 
     <EditText
-        android:id="@+id/PreyNoteInput"
+        android:id="@+id/SightingNoteInput"
         android:layout_width="225dp"
         android:layout_height="60dp"
         android:layout_marginTop="24dp"
@@ -175,7 +175,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline11"
-        app:layout_constraintTop_toBottomOf="@+id/PreyLongitudeInput"
+        app:layout_constraintTop_toBottomOf="@+id/SightingLongitudeInput"
         tools:visibility="visible" />
 
     <ImageView

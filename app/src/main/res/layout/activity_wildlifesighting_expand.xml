@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PreyExpand">
+    tools:context=".WildlifeSightingExpand">
 
     <ImageView
-        android:id="@+id/PreyExpandImage"
+        android:id="@+id/SightingExpandImage"
         android:layout_width="181dp"
         android:layout_height="109dp"
         android:textColor="@color/blackColor"
@@ -20,15 +20,15 @@
         app:srcCompat="@drawable/ic_profile" />
 
     <TextView
-        android:id="@+id/EXPreyText"
+        android:id="@+id/EXSightingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Prey"
+        android:text="Wildlife Sighting"
         android:textColor="@color/blackColor"
-        android:textStyle="bold"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/PreyExpandImage"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/SightingExpandImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
         app:layout_constraintGuide_begin="150dp" />
 
     <TextView
-        android:id="@+id/PreyAuthorExpand"
+        android:id="@+id/SightingAuthorExpand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
@@ -51,14 +51,14 @@
         android:textColor="@color/blackColor"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/PreyLattitudeExpand"
+        app:layout_constraintBottom_toTopOf="@+id/SightingLatitudeExpand"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/PreyLattitudeExpand"
+        android:id="@+id/SightingLatitudeExpand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -66,12 +66,12 @@
         android:textColor="@color/blackColor"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/PreyLongitudeExpand"
+        app:layout_constraintBottom_toTopOf="@+id/SightingLongitudeExpand"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/PreyLongitudeExpand"
+        android:id="@+id/SightingLongitudeExpand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -79,12 +79,12 @@
         android:textSize="24sp"
         android:textColor="@color/blackColor"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/PreyDateExpand"
+        app:layout_constraintBottom_toTopOf="@+id/SightingDateExpand"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/PreyDateExpand"
+        android:id="@+id/SightingDateExpand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -92,12 +92,12 @@
         android:textColor="@color/blackColor"
         android:textStyle="bold"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/PreyNotesExpand"
+        app:layout_constraintBottom_toTopOf="@+id/SightingNotesExpand"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/PreyNotesExpand"
+        android:id="@+id/SightingNotesExpand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
@@ -110,42 +110,42 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/EXPreyAuthorText"
+        android:id="@+id/EXSightingAuthorText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/EXPreyLattitudeText"
+        app:layout_constraintBottom_toTopOf="@+id/EXSightingLatitudeText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/EXPreyLattitudeText"
+        android:id="@+id/EXSightingLatitudeText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/EXPreyLongitudeText"
+        app:layout_constraintBottom_toTopOf="@+id/EXSightingLongitudeText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <TextView
-        android:id="@+id/EXPreyLongitudeText"
+        android:id="@+id/EXSightingLongitudeText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/EXPreyDateText"
+        app:layout_constraintBottom_toTopOf="@+id/EXSightingDateText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <TextView
-        android:id="@+id/EXPreyDateText"
+        android:id="@+id/EXSightingDateText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="256dp"
@@ -156,7 +156,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <TextView
-        android:id="@+id/EXPreyNotesText"
+        android:id="@+id/EXSightingNotesText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -168,7 +168,7 @@
         app:layout_constraintVertical_bias="0.72" />
 
     <TextView
-        android:id="@+id/PreyExpandBack"
+        android:id="@+id/SightingExpandBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"

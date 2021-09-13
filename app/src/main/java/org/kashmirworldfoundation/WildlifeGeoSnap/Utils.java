@@ -42,29 +42,29 @@ public class Utils {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user",Context.MODE_PRIVATE);
         return sharedPreferences.getString("uid",null);
     }
-    public void saveprey(Prey prey,Context context){
+    public void saveSighting(WildlifeSighting wildlifeSighting, Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("user",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        ArrayList<Prey> list=getprey(context);
-        list.add(prey);
-        Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class,new MyDateTypeAdapter()).create();;
+        ArrayList<WildlifeSighting> list= getSighting(context);
+        list.add(wildlifeSighting);
+        Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class,new MyDateTypeAdapter()).create();
         String json =gson.toJson(list);
 
-        editor.putString("prey",json);
+        editor.putString("wildlifeSighting",json);
         editor.apply();
 
     }
-    public ArrayList<Prey> getprey(Context context){
+    public ArrayList<WildlifeSighting> getSighting(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("user",Context.MODE_PRIVATE);
-        Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class,new MyDateTypeAdapter()).create();;
-        String json =sharedPreferences.getString("prey",null);
+        Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class,new MyDateTypeAdapter()).create();
+        String json =sharedPreferences.getString("wildlifeSighting",null);
         if (json==null){
             return new ArrayList<>();
         }
         else{
 
 
-            Type type = new TypeToken<ArrayList<Prey>>() {}.getType();
+            Type type = new TypeToken<ArrayList<WildlifeSighting>>() {}.getType();
             return gson.fromJson(json,type);
 
 

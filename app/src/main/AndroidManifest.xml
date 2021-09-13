@@ -46,8 +46,8 @@
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.TakedownListActivity"></activity>
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.ForgetPasswordActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.PreyExpand" />
-        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.AddPreyActivity" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.WildlifeSightingExpand" />
+        <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.AddWildlifeSightingActivity" />
         <activity android:name="org.kashmirworldfoundation.WildlifeGeoSnap.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

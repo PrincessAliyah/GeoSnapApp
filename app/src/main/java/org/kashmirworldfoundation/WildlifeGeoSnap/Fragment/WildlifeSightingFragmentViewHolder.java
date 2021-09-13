@@ -7,13 +7,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import org.kashmirworldfoundation.WildlifeGeoSnap.R;
-public class PreyFragmentViewHolder extends RecyclerView.ViewHolder {
-    TextView Prey;
+public class WildlifeSightingFragmentViewHolder extends RecyclerView.ViewHolder {
+    TextView Sighting;
     TextView dateId;
     ImageView imgId;
-    public PreyFragmentViewHolder(@NonNull View itemView) {
+    public WildlifeSightingFragmentViewHolder(@NonNull View itemView) {
         super(itemView);
-        Prey= itemView.findViewById(R.id.PreyStationId);
+        Sighting = itemView.findViewById(R.id.SightingStationId);
         dateId = itemView.findViewById(R.id.PreyDateId);
         imgId = itemView.findViewById(R.id.PreyImgId);
     }

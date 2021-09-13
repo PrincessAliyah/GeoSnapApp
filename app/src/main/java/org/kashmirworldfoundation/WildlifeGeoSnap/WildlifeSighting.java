@@ -5,40 +5,40 @@ import android.os.Parcelable;
 
 import com.google.firebase.Timestamp;
 
-public class Prey implements Parcelable {
+public class WildlifeSighting implements Parcelable {
     private String Note;
     private String latitudeS;
     private String longitudeS;
     private String pic;
     private String org;
-    private String prey;
+    private String sighting;
     private Timestamp Posted;
     private String member;
     private String author;
 
-    protected Prey(Parcel in) {
+    protected WildlifeSighting(Parcel in) {
         Note = in.readString();
         latitudeS = in.readString();
         longitudeS = in.readString();
         pic = in.readString();
         org = in.readString();
-        prey=in.readString();
+        sighting =in.readString();
         Posted=in.readParcelable(getClass().getClassLoader());
         member=in.readString();
         author=in.readString();
     }
-    public Prey(){
+    public WildlifeSighting(){
 
     }
-    public static final Creator<Prey> CREATOR = new Creator<Prey>() {
+    public static final Creator<WildlifeSighting> CREATOR = new Creator<WildlifeSighting>() {
         @Override
-        public Prey createFromParcel(Parcel in) {
-            return new Prey(in);
+        public WildlifeSighting createFromParcel(Parcel in) {
+            return new WildlifeSighting(in);
         }
 
         @Override
-        public Prey[] newArray(int size) {
-            return new Prey[size];
+        public WildlifeSighting[] newArray(int size) {
+            return new WildlifeSighting[size];
         }
     };
 
@@ -82,12 +82,12 @@ public class Prey implements Parcelable {
         this.org = org;
     }
 
-    public String getPrey() {
-        return prey;
+    public String getSighting() {
+        return sighting;
     }
 
-    public void setPrey(String prey) {
-        this.prey = prey;
+    public void setSighting(String sighting) {
+        this.sighting = sighting;
     }
 
     public Timestamp getPosted() {
@@ -126,7 +126,7 @@ public class Prey implements Parcelable {
         dest.writeString(longitudeS);
         dest.writeString(pic);
         dest.writeString(org);
-        dest.writeString(prey);
+        dest.writeString(sighting);
         dest.writeParcelable(Posted,0);
         dest.writeString(member);
         dest.writeString(author);

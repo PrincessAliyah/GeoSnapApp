@@ -15,9 +15,10 @@
         <item android:id = "@+id/nav_add"
             android:icon="@drawable/ic_add"
             android:title="Add" />
-        <item android:id = "@+id/nav_prey"
-            android:icon="@drawable/ic_prey"
-            android:title="prey" />
+        <item
+            android:id="@+id/nav_widlifeSighting"
+            android:icon="@drawable/ic_sighting"
+            android:title="Wildlife Sighting" />
         <item android:id = "@+id/nav_map"
             android:icon="@drawable/ic_map"
             android:title="Map" />

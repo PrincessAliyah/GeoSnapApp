@@ -38,10 +38,10 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.kashmirworldfoundation.WildlifeGeoSnap.AddPreyActivity;
+import org.kashmirworldfoundation.WildlifeGeoSnap.AddWildlifeSightingActivity;
 import org.kashmirworldfoundation.WildlifeGeoSnap.MyDateTypeAdapter;
-import org.kashmirworldfoundation.WildlifeGeoSnap.Prey;
-import org.kashmirworldfoundation.WildlifeGeoSnap.PreyExpand;
+import org.kashmirworldfoundation.WildlifeGeoSnap.WildlifeSighting;
+import org.kashmirworldfoundation.WildlifeGeoSnap.WildlifeSightingExpand;
 import org.kashmirworldfoundation.WildlifeGeoSnap.R;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Utils;
 
@@ -49,7 +49,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class PreyFragment extends Fragment implements View.OnClickListener{
+public class WildlifeSightingFragment extends Fragment implements View.OnClickListener{
 
     // objects
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -57,15 +57,15 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-    private View PreyFragment;
+    private View WildlifeSightingFragment;
 
     private static final String TAG = "ListFragment";
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     private RecyclerView recyclerView;
-    private PreyFragmentAdapter preyFragmentAdapter;
-    private ArrayList<Prey> CPreyArrayList;
-    private FloatingActionButton AddPrey,UploadPrey;
+    private WildlifeSightingFragmentAdapter wildlifeSightingFragmentAdapter;
+    private ArrayList<WildlifeSighting> CWildlifeSightingArrayList;
+    private FloatingActionButton AddWildlifeSighting, UploadWildlifeSighting;
     private int WRITE_FILE=1;
 
     private int pos;
@@ -78,57 +78,57 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {;
+                             Bundle savedInstanceState) {
 
-        PreyFragment =inflater.inflate(R.layout.fragment_prey, container, false);
-        recyclerView=PreyFragment.findViewById(R.id.recyler3);
-        CPreyArrayList= new ArrayList<>();
+        WildlifeSightingFragment =inflater.inflate(R.layout.fragment_wildlifesighting, container, false);
+        recyclerView= WildlifeSightingFragment.findViewById(R.id.recyler3);
+        CWildlifeSightingArrayList = new ArrayList<>();
 
-        preyFragmentAdapter=new PreyFragmentAdapter(CPreyArrayList,this);
-        recyclerView.setAdapter(preyFragmentAdapter);
+        wildlifeSightingFragmentAdapter =new WildlifeSightingFragmentAdapter(CWildlifeSightingArrayList,this);
+        recyclerView.setAdapter(wildlifeSightingFragmentAdapter);
         LinearLayoutManager manager=new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(manager);
 
-        AddPrey=PreyFragment.findViewById(R.id.PreyAdd);
+        AddWildlifeSighting = WildlifeSightingFragment.findViewById(R.id.SightingAdd);
 
-        UploadPrey=PreyFragment.findViewById(R.id.PreyUpload);
+        UploadWildlifeSighting = WildlifeSightingFragment.findViewById(R.id.SightingUpload);
         db= FirebaseFirestore.getInstance();
         fStorage=FirebaseStorage.getInstance();
-        AddPrey.setOnClickListener(new View.OnClickListener() {
+        AddWildlifeSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(getContext(), AddPreyActivity.class));
+                startActivity(new Intent(getContext(), AddWildlifeSightingActivity.class));
             }
         });
 
-        UploadPrey.setOnClickListener(new View.OnClickListener() {
+        UploadWildlifeSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils utils= new Utils();
                 int counter=0;
                 CollectionReference collection = db.collection("CameraStation");
-                ArrayList<Prey> preys=utils.getprey(getContext());
-                for(Prey prey:preys){
+                ArrayList<WildlifeSighting> wildlifeSightings =utils.getSighting(getContext());
+                for(WildlifeSighting wildlifeSighting : wildlifeSightings){
                     DocumentReference doc = collection.document();
                     String path = doc.getId();
-                    postpic(prey.getPic(),path);
-                    prey.setPic(path+"/image");
+                    postpic(wildlifeSighting.getPic(),path);
+                    wildlifeSighting.setPic(path+"/image");
                     FirebaseFirestore db= FirebaseFirestore.getInstance();
 
-                    db.collection("Prey").document(path).set(prey);
+                    db.collection("WildlifeSighting").document(path).set(wildlifeSighting);
                     counter+=1;
                 }
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("user",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
-                Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class,new MyDateTypeAdapter()).create();;
-                String json =gson.toJson(new ArrayList<Prey>());
+                Gson gson = new GsonBuilder().registerTypeAdapter(Timestamp.class,new MyDateTypeAdapter()).create();
+                String json =gson.toJson(new ArrayList<WildlifeSighting>());
                 String counters = String.valueOf(counter);
-                editor.putString("prey",json);
+                editor.putString("wildlifeSighting",json);
                 editor.apply();
-                Toast.makeText(getContext(), counters + " Prey uploaded",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), counters + " WildlifeSighting uploaded",Toast.LENGTH_LONG).show();
 
 
             }
@@ -137,18 +137,18 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
         // Add data from Firebase on the the Arrays
         new PreyAsyncTask(this).execute();
 
-        return PreyFragment;
+        return WildlifeSightingFragment;
     }
     /*
     @Override
     public void onClick(View v) {
         pos =recyclerView.getChildLayoutPosition(v);
-        Prey selectiion=CPreyArrayList.get(pos);
+        WildlifeSighting selectiion=CWildlifeSightingArrayList.get(pos);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("Prey",selectiion.getPrey());
+        editor.putString("WildlifeSighting",selectiion.getSighting());
 
         editor.apply();
         startActivity(new Intent(getContext(), Station_List.class));
@@ -160,14 +160,14 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
 */
 
     //SationAsyncTask would update this
-    public void updatePreyList(ArrayList<Prey> s){
-        CPreyArrayList.addAll(s);
+    public void updatePreyList(ArrayList<WildlifeSighting> s){
+        CWildlifeSightingArrayList.addAll(s);
     }
 
     //after list was already update, it create the adapter, put the list and show
     public void updateList(){
-        preyFragmentAdapter=new PreyFragmentAdapter(CPreyArrayList,this);
-        recyclerView.setAdapter(preyFragmentAdapter);
+        wildlifeSightingFragmentAdapter =new WildlifeSightingFragmentAdapter(CWildlifeSightingArrayList,this);
+        recyclerView.setAdapter(wildlifeSightingFragmentAdapter);
         LinearLayoutManager a=new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(a);
 
@@ -183,11 +183,8 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
 
     private boolean checkPermission() {
 
-        if (ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED;
     }
     private void requestPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -211,8 +208,8 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    public static PreyFragment newInstance() {
-        return new PreyFragment();
+    public static WildlifeSightingFragment newInstance() {
+        return new WildlifeSightingFragment();
     }
 
 
@@ -251,11 +248,11 @@ public class PreyFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         pos =recyclerView.getChildLayoutPosition(v);
-        Prey selectiion=CPreyArrayList.get(pos);
+        WildlifeSighting selectiion= CWildlifeSightingArrayList.get(pos);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        Intent I= new Intent(getContext(), PreyExpand.class);
-        I.putExtra("Prey",selectiion);
+        Intent I= new Intent(getContext(), WildlifeSightingExpand.class);
+        I.putExtra("WildlifeSighting",selectiion);
         startActivity(I);
 
     }

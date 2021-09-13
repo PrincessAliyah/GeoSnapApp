@@ -1,7 +1,6 @@
 package org.kashmirworldfoundation.WildlifeGeoSnap;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,11 +8,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.ListFragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.content.Intent;
@@ -21,15 +15,11 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.apache.http.HttpEntity;
@@ -40,12 +30,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.jetbrains.annotations.NotNull;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AddFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.MapFragment;
-import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.PreyFragment;
+import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.WildlifeSightingFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment;
-import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.StationAsyncTask;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -126,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new MapFragment()).commit();
                 break;
-            case R.id.nav_prey:
+            case R.id.nav_widlifeSighting:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new PreyFragment()).commit();
+                        new WildlifeSightingFragment()).commit();
                 break;
             case R.id.nav_list:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

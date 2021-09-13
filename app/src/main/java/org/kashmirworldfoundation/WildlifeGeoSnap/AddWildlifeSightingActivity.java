@@ -36,10 +36,10 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddPreyActivity extends AppCompatActivity {
-    private EditText PreyInput;
+public class AddWildlifeSightingActivity extends AppCompatActivity {
+    private EditText SightingInput;
     private EditText LongitudeInput;
-    private EditText LattitudeInput;
+    private EditText LatitudeInput;
     private EditText NoteInput;
     private ImageView img;
     private Button Post;
@@ -52,14 +52,14 @@ public class AddPreyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add__prey);
-        PreyInput=findViewById(R.id.PreyTitleInput);
-        LongitudeInput=findViewById(R.id.PreyLongitudeInput);
-        LattitudeInput=findViewById(R.id.PreyLattitudeInput);
-        NoteInput=findViewById(R.id.PreyNoteInput);
+        setContentView(R.layout.activity_add_wildlifesighting);
+        SightingInput =findViewById(R.id.SightingTitleInput);
+        LongitudeInput=findViewById(R.id.SightingLongitudeInput);
+        LatitudeInput =findViewById(R.id.SightingLatitudeInput);
+        NoteInput=findViewById(R.id.SightingNoteInput);
         img=findViewById(R.id.PreyImg);
-        Post=findViewById(R.id.PreyAddBtn);
-        Back=findViewById(R.id.PreyBack);
+        Post=findViewById(R.id.SightingAddBtn);
+        Back=findViewById(R.id.SightingBack);
         db=FirebaseFirestore.getInstance();
         fStorage= FirebaseStorage.getInstance();
         begin();
@@ -74,26 +74,26 @@ public class AddPreyActivity extends AppCompatActivity {
         Post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Prey prey= new Prey();
-                CollectionReference collection =db.collection("Prey");
+                WildlifeSighting wildlifeSighting = new WildlifeSighting();
+                CollectionReference collection =db.collection("WildlifeSighting");
                 DocumentReference doc = collection.document();
                 String path=doc.getId();
                 Date currentTime = Calendar.getInstance().getTime();
                 postpic(path);
-                prey.setPrey(PreyInput.getText().toString());
-                prey.setLatitudeS(LattitudeInput.getText().toString());
-                prey.setLongitudeS(LongitudeInput.getText().toString());
-                prey.setNote(NoteInput.getText().toString());
-                prey.setPosted(new Timestamp(currentTime));
-                prey.setPic(uri.toString());
+                wildlifeSighting.setSighting(SightingInput.getText().toString());
+                wildlifeSighting.setLatitudeS(LatitudeInput.getText().toString());
+                wildlifeSighting.setLongitudeS(LongitudeInput.getText().toString());
+                wildlifeSighting.setNote(NoteInput.getText().toString());
+                wildlifeSighting.setPosted(new Timestamp(currentTime));
+                wildlifeSighting.setPic(uri.toString());
 
                 Utils utils= new Utils();
                 Member member=utils.loaduser(getApplicationContext());
-                prey.setMember("Member/"+utils.loadUid(getApplicationContext()));
+                wildlifeSighting.setMember("Member/"+utils.loadUid(getApplicationContext()));
 
-                prey.setOrg(member.getOrg());
-                prey.setAuthor(member.getFullname());
-                utils.saveprey(prey,getApplicationContext());
+                wildlifeSighting.setOrg(member.getOrg());
+                wildlifeSighting.setAuthor(member.getFullname());
+                utils.saveSighting(wildlifeSighting,getApplicationContext());
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
             }
@@ -134,14 +134,14 @@ public class AddPreyActivity extends AppCompatActivity {
             String temp;
             if(latlong[0]!=0){
                 temp=String.valueOf(latlong[0]);
-                LattitudeInput.setText(temp);
+                LatitudeInput.setText(temp);
             }
             if(latlong[1]!=0){
                 temp=String.valueOf(latlong[1]);
                 LongitudeInput.setText(temp);
             }
             temp=String.valueOf(latlong[0]);
-            LattitudeInput.setText(temp);
+            LatitudeInput.setText(temp);
             temp=String.valueOf(latlong[1]);
             LongitudeInput.setText(temp);
             end();
@@ -177,16 +177,16 @@ public class AddPreyActivity extends AppCompatActivity {
 
 
     private void begin(){
-        PreyInput.setVisibility(View.GONE);
+        SightingInput.setVisibility(View.GONE);
         LongitudeInput.setVisibility(View.GONE);
-        LattitudeInput.setVisibility(View.GONE);
+        LatitudeInput.setVisibility(View.GONE);
         LongitudeInput.setText("");
-        LattitudeInput.setText("");
+        LatitudeInput.setText("");
         NoteInput.setVisibility(View.GONE);
         Post.setVisibility(View.GONE);
         img.setVisibility(View.VISIBLE);
-        findViewById(R.id.PreyTitleLabel).setVisibility(View.GONE);
-        findViewById(R.id.PreyLattitudeLabel).setVisibility(View.GONE);
+        findViewById(R.id.SightingTitleLabel).setVisibility(View.GONE);
+        findViewById(R.id.SightingLatitudeLabel).setVisibility(View.GONE);
         findViewById(R.id.PreyLongitudeLabel).setVisibility(View.GONE);
         findViewById(R.id.PreyNoteLabel).setVisibility(View.GONE);
         pic=true;
@@ -195,18 +195,18 @@ public class AddPreyActivity extends AppCompatActivity {
 
     }
     private void end(){
-        PreyInput.setVisibility(View.VISIBLE);
+        SightingInput.setVisibility(View.VISIBLE);
         LongitudeInput.setVisibility(View.VISIBLE);
-        LattitudeInput.setVisibility(View.VISIBLE);
+        LatitudeInput.setVisibility(View.VISIBLE);
         NoteInput.setVisibility(View.VISIBLE);
         Post.setVisibility(View.VISIBLE);
         img.setVisibility(View.GONE);
-        findViewById(R.id.PreyTitleLabel).setVisibility(View.VISIBLE);
-        findViewById(R.id.PreyLattitudeLabel).setVisibility(View.VISIBLE);
+        findViewById(R.id.SightingTitleLabel).setVisibility(View.VISIBLE);
+        findViewById(R.id.SightingLatitudeLabel).setVisibility(View.VISIBLE);
         findViewById(R.id.PreyLongitudeLabel).setVisibility(View.VISIBLE);
         findViewById(R.id.PreyNoteLabel).setVisibility(View.VISIBLE);
         pic=false;
-        String Slat=LattitudeInput.getText().toString();
+        String Slat= LatitudeInput.getText().toString();
         String Slong=LongitudeInput.getText().toString();
 
         if(Slat=="0"&& Slong=="0"){

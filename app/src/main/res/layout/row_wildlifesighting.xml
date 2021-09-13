@@ -17,14 +17,13 @@
         >
 
         <ImageView
+            android:id="@+id/PreyImgId"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:src="@drawable/kwflogo"
-            android:id="@+id/PreyImgId"
-            />
+            android:src="@drawable/kwflogo" />
 
         <TextView
-            android:id="@+id/PreyStationId"
+            android:id="@+id/SightingStationId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -33,25 +32,24 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:layout_toRightOf="@id/PreyImgId"
-            android:text="Prey ID: "
+            android:text="Wildlife Sighting ID: "
             android:textColor="#000"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/PreyDateId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/SightingStationId"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/PreyImgId"
             android:text="Date"
             android:textColor="#a9a9a9"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_toRightOf="@id/PreyImgId"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:layout_below="@id/PreyStationId"
-            android:id="@+id/PreyDateId"
-            />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

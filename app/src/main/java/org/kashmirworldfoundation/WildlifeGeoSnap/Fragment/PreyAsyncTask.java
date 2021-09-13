@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.kashmirworldfoundation.WildlifeGeoSnap.Member;
-import org.kashmirworldfoundation.WildlifeGeoSnap.Prey;
+import org.kashmirworldfoundation.WildlifeGeoSnap.WildlifeSighting;
 
 import java.util.ArrayList;
 
@@ -22,20 +22,21 @@ public class PreyAsyncTask extends AsyncTask<String, Void, String> {
     private CollectionReference collectionReference;
     private FirebaseAuth FireAuth;
 
-    private ArrayList<Prey> Aprey= new ArrayList<>();
+    private ArrayList<WildlifeSighting> aprey = new ArrayList<>();
     private Member mem;
     private String Org;
     private static final String TAG = "StationAsyncTask";
     private int count;
     private int size;
 
-    private PreyFragment preyFragment;
+    private WildlifeSightingFragment wildlifeSightingFragment;
 
-    PreyAsyncTask(PreyFragment li){preyFragment=li;}
+    PreyAsyncTask(WildlifeSightingFragment li){
+        wildlifeSightingFragment =li;}
 
     protected void update(){
-        preyFragment.updatePreyList(Aprey);
-        preyFragment.updateList();
+        wildlifeSightingFragment.updatePreyList(aprey);
+        wildlifeSightingFragment.updateList();
     }
 
 
@@ -46,7 +47,7 @@ public class PreyAsyncTask extends AsyncTask<String, Void, String> {
         try {
             FireAuth = FirebaseAuth.getInstance();
             firebaseFirestore = FirebaseFirestore.getInstance();
-            collectionReference = firebaseFirestore.collection("Prey");
+            collectionReference = firebaseFirestore.collection("WildlifeSighting");
         }
         catch (Exception e){
             //Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -64,8 +65,8 @@ public class PreyAsyncTask extends AsyncTask<String, Void, String> {
                             if (task.isSuccessful()){
                                 size = task.getResult().size();
                                 for (DocumentSnapshot objectDocumentSnapshot: task.getResult()){
-                                    Prey stat = objectDocumentSnapshot.toObject(Prey.class);
-                                    Aprey.add(stat);
+                                    WildlifeSighting stat = objectDocumentSnapshot.toObject(WildlifeSighting.class);
+                                    aprey.add(stat);
                                     count++;
                                     if(count==size){
                                         update();

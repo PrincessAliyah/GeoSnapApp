@@ -2,6 +2,7 @@ package org.kashmirworldfoundation.WildlifeGeoSnap.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +33,8 @@ public class HomeFragment extends Fragment {
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationView navigationView = (NavigationView) HomeFragment.findViewById(R.id.nav_view);
-//
-//                HomeFragment.onNavigationItemSelected(navigationView.getMenu().getItem(R.id.nav_profile));
-//                navigationView.setCheckedItem(R.id.nav_profile);
-//                navigationView.getMenu().getItem(1).setChecked(true);
+                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().findItem(R.id.nav_profile).setChecked(true);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ProfileFragment profile = new ProfileFragment();
@@ -49,9 +47,8 @@ public class HomeFragment extends Fragment {
         buttonStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationView navigationView = (NavigationView) HomeFragment.findViewById(R.id.nav_view);
-//                navigationView.setCheckedItem(R.id.nav_add);
-//                navigationView.getMenu().getItem(3).setChecked(true);
+                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().findItem(R.id.nav_add).setChecked(true);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddFragment study = new AddFragment();
@@ -64,9 +61,8 @@ public class HomeFragment extends Fragment {
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationView navigationView = (NavigationView) HomeFragment.findViewById(R.id.nav_view);
-//                navigationView.setCheckedItem(R.id.nav_map);
-//                navigationView.getMenu().getItem(5).setChecked(true);
+                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().findItem(R.id.nav_map).setChecked(true);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 MapFragment map = new MapFragment();

@@ -1,0 +1,420 @@
+Index: app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.kashmirworldfoundation.WildlifeGeoSnap;\n\nimport androidx.annotation.NonNull;\nimport androidx.annotation.Nullable;\nimport androidx.appcompat.app.ActionBarDrawerToggle;\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.appcompat.widget.Toolbar;\nimport androidx.core.app.ActivityCompat;\nimport androidx.core.content.ContextCompat;\nimport androidx.core.view.GravityCompat;\nimport androidx.drawerlayout.widget.DrawerLayout;\nimport androidx.fragment.app.Fragment;\nimport androidx.fragment.app.FragmentManager;\nimport androidx.fragment.app.FragmentPagerAdapter;\nimport androidx.fragment.app.ListFragment;\nimport androidx.viewpager.widget.ViewPager;\n\nimport android.Manifest;\nimport android.content.Intent;\nimport android.content.pm.PackageManager;\nimport android.location.Location;\nimport android.os.Bundle;\nimport android.os.StrictMode;\nimport android.util.Log;\nimport android.view.MenuItem;\nimport android.view.View;\nimport android.widget.Toast;\n\nimport com.google.android.gms.location.FusedLocationProviderClient;\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\nimport com.google.android.material.navigation.NavigationView;\nimport com.google.android.material.tabs.TabLayout;\nimport com.google.firebase.auth.FirebaseAuth;\n\nimport org.apache.http.HttpEntity;\nimport org.apache.http.HttpResponse;\nimport org.apache.http.client.ClientProtocolException;\nimport org.apache.http.client.HttpClient;\nimport org.apache.http.client.methods.HttpGet;\nimport org.apache.http.impl.client.DefaultHttpClient;\nimport org.apache.http.protocol.BasicHttpContext;\nimport org.apache.http.protocol.HttpContext;\nimport org.jetbrains.annotations.NotNull;\nimport org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AddFragment;\nimport org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.MapFragment;\nimport org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.PreyFragment;\nimport org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment;\nimport org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.StationAsyncTask;\n\nimport java.io.IOException;\nimport java.io.InputStream;\n\nimport com.google.android.gms.location.LocationServices;\nimport com.google.android.gms.tasks.OnSuccessListener;\n\npublic class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {\n    private AddFragment addFragment;\n    private FusedLocationProviderClient mFusedLocationClient;\n    private static final int LOCATION_REQUEST = 111;\n    private static final String TAG = \"MainActivity\";\n    public Double latitudeD;\n    private Double longitudeD;\n    private Double altitudeD;\n\n    private String latitude;\n    private String longitude;\n    private String altitude;\n\n\n    private static final String ELEVATION_API_KEY=\"AIzaSyBh-rFSAH9QqPtUrLXcT5Z0c2ZQiJUWkTc\";\n\n    private DrawerLayout drawer;\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);\n\n        Toolbar toolbar = findViewById(R.id.toolbar);\n        setSupportActionBar(toolbar);\n\n        getSupportActionBar().setDisplayShowHomeEnabled(true);\n        getSupportActionBar().setIcon(R.drawable.logo);\n\n        drawer = findViewById(R.id.drawer_layout);\n\n        NavigationView navigationView = findViewById(R.id.nav_view);\n        navigationView.setNavigationItemSelectedListener(this);\n\n        addFragment = new AddFragment();\n\n        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,\n                R.string.navigation_drawer_open, R.string.navigation_drawer_close);\n\n        drawer.addDrawerListener(toggle);\n\n        toggle.syncState();\n\n        if (savedInstanceState == null){\n            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\n                    new ProfileFragment()).commit();\n            navigationView.setCheckedItem(R.id.nav_profile);\n        }\n        if (android.os.Build.VERSION.SDK_INT > 9) {\n            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();\n            StrictMode.setThreadPolicy(policy);\n        }\n\n    }\n\n\n    @Override\n    public boolean onNavigationItemSelected(@NonNull MenuItem item){\n        switch (item.getItemId()){\n\n            case R.id.nav_profile:\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\n                        new ProfileFragment()).commit();\n                break;\n            case R.id.nav_add:\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\n                        new AddFragment()).commit();\n                break;\n            case R.id.nav_map:\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\n                        new MapFragment()).commit();\n                break;\n            case R.id.nav_prey:\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\n                        new PreyFragment()).commit();\n                break;\n            case R.id.nav_list:\n                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,\n                        new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();\n                break;\n            case R.id.nav_logout:\n                FirebaseAuth.getInstance().signOut();\n                startActivity(new Intent(getApplicationContext(), LoginActivity.class));\n                finish();\n                break;\n        }\n\n        drawer.closeDrawer(GravityCompat.START);\n        return true;\n    }\n\n\n    @Override\n    public void onBackPressed(){\n        if (drawer.isDrawerOpen(GravityCompat.START)){\n            drawer.closeDrawer(GravityCompat.START);\n        } else{\n            super.onBackPressed();\n        }\n    }\n\n\n    private void determineLocation() {\n\n        if (checkPermission()) {\n            mFusedLocationClient.getLastLocation()\n                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {\n\n                        @Override\n                        public void onSuccess(Location location) {\n                            if (location != null) {\n                                latitudeD=location.getLatitude();\n                                longitudeD=location.getLongitude();\n                                latitude=String.valueOf(latitudeD);\n                                longitude=String.valueOf(longitudeD);\n                                altitudeD= getElevationFromGoogleMaps(longitudeD,latitudeD);\n                                altitude=String.valueOf(altitudeD);\n                                setArgument();\n                            }\n                        }\n                    });\n        }\n\n    }\n\n    private double getElevationFromGoogleMaps(double longitude, double latitude) {\n        double result = Double.NaN;\n        HttpClient httpClient = new DefaultHttpClient();\n        HttpContext localContext = new BasicHttpContext();\n        String url = \"https://maps.googleapis.com/maps/api/elevation/\"\n                + \"xml?locations=\" + String.valueOf(latitude)\n                + \",\" + String.valueOf(longitude)\n                + \"&key=\"\n                + ELEVATION_API_KEY;\n        HttpGet httpGet = new HttpGet(url);\n        try {\n            HttpResponse response = httpClient.execute(httpGet, localContext);\n            HttpEntity entity = response.getEntity();\n            if (entity != null) {\n                InputStream instream = entity.getContent();\n                int r = -1;\n                StringBuffer respStr = new StringBuffer();\n                while ((r = instream.read()) != -1)\n                    respStr.append((char) r);\n                String tagOpen = \"<elevation>\";\n                String tagClose = \"</elevation>\";\n                if (respStr.indexOf(tagOpen) != -1) {\n                    int start = respStr.indexOf(tagOpen) + tagOpen.length();\n                    int end = respStr.indexOf(tagClose);\n                    String value = respStr.substring(start, end);\n                    //result = (double)(Double.parseDouble(value)*3.2808399); // convert from meters to feet\n                    result=(double)Double.parseDouble(value);\n                }\n                instream.close();\n            }\n        } catch (ClientProtocolException e) {}\n        catch (IOException e) {}\n\n        return result;\n    }\n\n\n    //send the argument to add fragment\n    private void setArgument(){\n        Bundle bundle = new Bundle();\n        bundle.putString(\"latitude\", latitude);\n        bundle.putString(\"longitude\", longitude);\n        bundle.putString(\"altitude\", altitude);\n        addFragment.setArguments(bundle);\n        addFragment.refresh();\n    }\n\n    //ask user to get the location premission and check\n    private boolean checkPermission() {\n        if (ContextCompat.checkSelfPermission(this,\n                Manifest.permission.ACCESS_FINE_LOCATION) !=\n                PackageManager.PERMISSION_GRANTED) {\n            ActivityCompat.requestPermissions(this,\n                    new String[]{\n                            Manifest.permission.ACCESS_FINE_LOCATION\n                    }, LOCATION_REQUEST);\n            return false;\n        }\n        return true;\n    }\n\n\n\n\n\n    @Override\n    public void onRequestPermissionsResult(int requestCode,\n                                           @NonNull String[] permissions,\n                                           @NonNull int[] grantResults) {\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults);\n\n        if (requestCode == LOCATION_REQUEST) {\n            for (int i = 0; i < permissions.length; i++) {\n                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {\n                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {\n                        determineLocation();\n                    } else {\n                        Toast.makeText(this, \"Location Permission not Granted\", Toast.LENGTH_SHORT).show();\n                    }\n                }\n            }\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/MainActivity.java	(revision b613f5eb79cabb60915d0bdf4a0e7deacf1258d0)
++++ app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/MainActivity.java	(date 1631571294193)
+@@ -41,7 +41,9 @@
+ import org.apache.http.protocol.BasicHttpContext;
+ import org.apache.http.protocol.HttpContext;
+ import org.jetbrains.annotations.NotNull;
++import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AboutFragment;
+ import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AddFragment;
++import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.HomeFragment;
+ import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.MapFragment;
+ import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.PreyFragment;
+ import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment;
+@@ -99,8 +101,8 @@
+ 
+         if (savedInstanceState == null){
+             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+-                    new ProfileFragment()).commit();
+-            navigationView.setCheckedItem(R.id.nav_profile);
++                    new HomeFragment()).commit();
++            navigationView.setCheckedItem(R.id.nav_home);
+         }
+         if (android.os.Build.VERSION.SDK_INT > 9) {
+             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+@@ -113,27 +115,35 @@
+     @Override
+     public boolean onNavigationItemSelected(@NonNull MenuItem item){
+         switch (item.getItemId()){
+-
++            case R.id.nav_home:
++                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
++                        new HomeFragment()).commit();
++                break;
+             case R.id.nav_profile:
+                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                         new ProfileFragment()).commit();
+                 break;
++            case R.id.nav_list:
++                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
++                        new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();
++                break;
+             case R.id.nav_add:
+                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                         new AddFragment()).commit();
+                 break;
++            case R.id.nav_prey:
++                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
++                        new PreyFragment()).commit();
++                break;
+             case R.id.nav_map:
+                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                         new MapFragment()).commit();
+                 break;
+-            case R.id.nav_prey:
+-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+-                        new PreyFragment()).commit();
+-                break;
+-            case R.id.nav_list:
++            case R.id.nav_about:
+                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+-                        new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();
++                        new AboutFragment()).commit();
+                 break;
++
+             case R.id.nav_logout:
+                 FirebaseAuth.getInstance().signOut();
+                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+Index: app/src/main/res/drawable/ic_arrow.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_arrow.xml	(date 1631563498335)
++++ app/src/main/res/drawable/ic_arrow.xml	(date 1631563498335)
+@@ -0,0 +1,5 @@
++<vector android:height="16dp" android:tint="?attr/colorControlNormal"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="16dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M5.88,4.12L13.76,12l-7.88,7.88L8,22l10,-10L8,2z"/>
++</vector>
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"delegatedBuild\" value=\"false\" />\n        <option name=\"testRunner\" value=\"GRADLE\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n          </set>\n        </option>\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision b613f5eb79cabb60915d0bdf4a0e7deacf1258d0)
++++ .idea/gradle.xml	(date 1631074287627)
+@@ -5,7 +5,7 @@
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="delegatedBuild" value="false" />
+-        <option name="testRunner" value="GRADLE" />
++        <option name="testRunner" value="PLATFORM" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="modules">
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\napply plugin: 'com.google.gms.google-services'\n\nandroid {\n    compileSdkVersion 30\n    buildToolsVersion \"29.0.2\"\n    ndkVersion '22.1.7171670'\n    defaultConfig {\n        applicationId \"org.kashmirworldfoundation.WildlifeGeoSnap\"\n        minSdkVersion 21\n        targetSdkVersion 30\n        multiDexEnabled true\n        versionCode 13\n        versionName \"13.0\"\n        ndk {\n            debugSymbolLevel 'FULL'\n        }\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n    signingConfigs {\n        release {\n            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {\n                storeFile file(MYAPP_RELEASE_STORE_FILE)\n                storePassword MYAPP_RELEASE_STORE_PASSWORD\n                keyAlias MYAPP_RELEASE_KEY_ALIAS\n                keyPassword MYAPP_RELEASE_KEY_PASSWORD\n            }\n        }\n    }\n    buildTypes {\n        release {\n            minifyEnabled true\n            crunchPngs false // or true\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n        }\n    }\n    compileOptions {\n        targetCompatibility = 1.8\n        sourceCompatibility = 1.8\n    }\n}\nrepositories {\n    mavenCentral()\n    maven { url 'https://maven.google.com' }\n\n}\ndependencies {\n\n    implementation 'com.google.code.gson:gson:2.8.5'\n    implementation 'com.google.firebase:firebase-storage:19.1.1'\n    implementation 'androidx.navigation:navigation-fragment:2.2.2'\n    implementation 'androidx.navigation:navigation-ui:2.2.2'\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\n    implementation 'androidx.appcompat:appcompat:1.2.0'\n    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'\n    implementation 'com.google.firebase:firebase-auth:19.3.1'\n    implementation 'com.google.firebase:firebase-messaging:20.2.3'\n    implementation 'com.google.firebase:firebase-database:19.3.1'\n    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\n    implementation 'androidx.cardview:cardview:1.0.0'\n    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'\n    implementation 'com.google.firebase:firebase-firestore:21.4.3'\n    implementation 'com.google.firebase:firebase-core:17.4.3'\n    testImplementation 'junit:junit:4.12'\n    androidTestImplementation 'androidx.test.ext:junit:1.1.0'\n    implementation 'com.google.android.gms:play-services-maps:17.0.0'\n    implementation 'com.google.android.gms:play-services-location:17.0.0'\n    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'\n    implementation 'com.github.bumptech.glide:glide:4.11.0'\n    implementation 'com.google.android.material:material:1.2.0-alpha02'\n    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'\n\n\n    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:9.3.0') {\n        exclude group: 'group_name', module: 'module_name'\n    }\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-offline-v9:0.7.0'\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-offline-v9:0.8.0-SNAPSHOT'\n\n    implementation 'com.getbase:floatingactionbutton:1.10.1'\n\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'\n\n    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.8.0'\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places:0.6.0'\n\n    implementation 'com.getbase:floatingactionbutton:1.10.1'\n\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'\n\n    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0'\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places:0.6.0'\n\n    implementation 'com.google.android.gms:play-services-maps:17.0.0'\n\n    implementation 'com.google.android.gms:play-services-location:17.0.0'\n\n    //implementation 'com.google.android.gms:play-services-location:17.0.0'\n    implementation 'com.google.maps.android:android-maps-utils:0.4'\n    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'\n\n\n}\nandroid.buildTypes.release.ndk.debugSymbolLevel = 'FULL'\n//apply plugin: 'com.android.application'\n//apply plugin: 'com.google.gms.google-services'\n//\n//android {\n//    compileSdkVersion 29\n//    buildToolsVersion \"29.0.2\"\n//    defaultConfig {\n//        applicationId \"org.kashmirworldfoundation.snowleopard\"\n//        minSdkVersion 21\n//        targetSdkVersion 29\n//        versionCode 1\n//        versionName \"1.0\"\n//        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n//    }\n//    buildTypes {\n//        release {\n//            minifyEnabled false\n//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n//        }\n//    }\n//    compileOptions {\n//        targetCompatibility = 1.8\n//        sourceCompatibility = 1.8\n//    }\n//}\n//repositories {\n//    mavenCentral()\n//    maven { url 'https://maven.google.com' }\n//\n//}\n//dependencies {\n//\n//    implementation 'com.google.code.gson:gson:2.8.5'\n//    implementation 'com.google.firebase:firebase-storage:19.1.1'\n//    implementation 'androidx.navigation:navigation-fragment:2.2.2'\n//    implementation 'androidx.navigation:navigation-ui:2.2.2'\n//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\n//    implementation fileTree(dir: 'libs', include: ['*.jar'])\n//    implementation 'androidx.appcompat:appcompat:1.1.0'\n//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'\n//    implementation 'com.google.firebase:firebase-auth:19.3.1'\n//    implementation 'com.google.firebase:firebase-database:19.3.1'\n//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'\n//    implementation 'androidx.cardview:cardview:1.0.0'\n//    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'\n//    implementation 'com.google.firebase:firebase-firestore:21.4.3'\n//    implementation 'com.google.firebase:firebase-core:17.4.3'\n//    testImplementation 'junit:junit:4.12'\n//    androidTestImplementation 'androidx.test.ext:junit:1.1.0'\n//    implementation 'com.google.android.gms:play-services-maps:17.0.0'\n//    implementation 'com.google.android.gms:play-services-location:17.0.0'\n//    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'\n//    implementation 'com.github.bumptech.glide:glide:4.11.0'\n//    implementation 'com.google.android.material:material:1.2.0-alpha02'\n//    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'\n//\n//\n//    implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:9.3.0') {\n//        exclude group: 'group_name', module: 'module_name'\n//    }\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-offline-v9:0.7.0'\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-offline-v9:0.8.0-SNAPSHOT'\n//\n//    implementation 'com.getbase:floatingactionbutton:1.10.1'\n//\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'\n//\n//    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.8.0'\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places:0.6.0'\n//\n//    implementation 'com.getbase:floatingactionbutton:1.10.1'\n//\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'\n//\n//    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:5.3.0'\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places:0.6.0'\n//\n//    implementation 'com.google.android.gms:play-services-maps:17.0.0'\n//\n//    implementation 'com.google.android.gms:play-services-location:17.0.0'\n//\n//    implementation 'com.google.android.gms:play-services-location:17.0.0'\n//    implementation 'com.google.maps.android:android-maps-utils:0.4'\n//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'\n//\n//\n//}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision b613f5eb79cabb60915d0bdf4a0e7deacf1258d0)
++++ app/build.gradle	(date 1631074671920)
+@@ -10,8 +10,8 @@
+         minSdkVersion 21
+         targetSdkVersion 30
+         multiDexEnabled true
+-        versionCode 13
+-        versionName "13.0"
++        versionCode 14
++        versionName "14.0"
+         ndk {
+             debugSymbolLevel 'FULL'
+         }
+Index: app/src/main/res/drawable/ic_map1.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_map1.xml	(date 1631563281394)
++++ app/src/main/res/drawable/ic_map1.xml	(date 1631563281394)
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="?attr/colorControlNormal">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M12,2C8.13,2 5,5.13 5,9c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.87 -3.13,-7 -7,-7zM12,11.5c-1.38,0 -2.5,-1.12 -2.5,-2.5s1.12,-2.5 2.5,-2.5 2.5,1.12 2.5,2.5 -1.12,2.5 -2.5,2.5z"/>
++</vector>
+Index: .idea/runConfigurations.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/runConfigurations.xml	(date 1631074287694)
++++ .idea/runConfigurations.xml	(date 1631074287694)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RunConfigurationProducerService">
++    <option name="ignoredProducers">
++      <set>
++        <option value="com.android.tools.idea.compose.preview.runconfiguration.ComposePreviewRunConfigurationProducer" />
++      </set>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:id=\"@+id/LoginLayout\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:background=\"@drawable/snow_leopard_wallpaper1\"\n    tools:context=\".LoginActivity\">\n\n    <ImageView\n\n        android:id=\"@+id/BackgroundLogin\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"match_parent\"\n        android:scaleType=\"fitXY\"\n        android:visibility=\"invisible\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintHorizontal_bias=\"0.0\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\"\n        app:layout_constraintVertical_bias=\"0.0\"\n        tools:srcCompat=\"@tools:sample/backgrounds/scenic\" />\n\n    <TextView\n        android:id=\"@+id/RegisterOrgBtn\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"100dp\"\n        android:layout_marginTop=\"16dp\"\n        android:layout_marginEnd=\"8dp\"\n        android:text=\"New Organization? Register Here\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"16sp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/Register0\" />\n\n    <TextView\n        android:id=\"@+id/Register0\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"100dp\"\n        android:layout_marginTop=\"80dp\"\n        android:layout_marginEnd=\"8dp\"\n        android:text=\"New Member? Register Here\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"16sp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/LoginBtn\" />\n        //app:layout_constraintTop_toBottomOf=\"@+id/LoginForget\" />\n\n    <Button\n        android:id=\"@+id/LoginBtn\"\n        android:layout_width=\"0dp\"\n        android:layout_height=\"45dp\"\n        android:layout_marginStart=\"180dp\"\n        android:layout_marginTop=\"16dp\"\n        android:layout_marginEnd=\"80dp\"\n        android:background=\"@color/grayColor\"\n        android:backgroundTint=\"@color/grayColor\"\n        android:bottomLeftRadius=\"20dp\"\n        android:bottomRightRadius=\"20dp\"\n        android:fontFamily=\"sans-serif\"\n        android:text=\"LOGIN\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"20sp\"\n        android:textStyle=\"bold\"\n        android:topLeftRadius=\"20dp\"\n        android:topRightRadius=\"20dp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintHorizontal_bias=\"1.0\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/LoginForget\"\n        app:strokeColor=\"@color/blackColor\"\n        app:strokeWidth=\"0.8dp\"/>\n        //app:layout_constraintTop_toBottomOf=\"@+id/password\" />\n\n\n    <EditText\n        android:id=\"@+id/password\"\n        android:layout_width=\"0dp\"\n        android:layout_height=\"42dp\"\n        android:layout_marginStart=\"130dp\"\n        android:layout_marginTop=\"20dp\"\n        android:layout_marginEnd=\"5dp\"\n        android:backgroundTint=\"#FAFAFA\"\n        android:ems=\"10\"\n        android:fontFamily=\"sans-serif\"\n        android:hint=\"Password:\"\n        android:inputType=\"textPassword\"\n        android:textColor=\"@color/blackColor\"\n        android:textColorHint=\"@color/blackColor\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/email\" />\n\n    <EditText\n        android:id=\"@+id/email\"\n        android:layout_width=\"0dp\"\n        android:layout_height=\"42dp\"\n        android:layout_marginStart=\"130dp\"\n        android:layout_marginTop=\"60dp\"\n        android:layout_marginEnd=\"5dp\"\n        android:backgroundTint=\"#FAFAFA\"\n        android:ems=\"10\"\n        android:fontFamily=\"sans-serif\"\n        android:hint=\"Email:\"\n        android:inputType=\"textEmailAddress\"\n        android:textColor=\"@color/blackColor\"\n        android:textColorHint=\"@color/blackColor\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/textView3\" />\n\n    <TextView\n        android:id=\"@+id/textView3\"\n        android:layout_width=\"382dp\"\n        android:layout_height=\"42dp\"\n        android:layout_marginStart=\"16dp\"\n        android:layout_marginTop=\"8dp\"\n        android:layout_marginEnd=\"16dp\"\n        android:elegantTextHeight=\"true\"\n        android:fontFamily=\"sans-serif\"\n        android:gravity=\"center\"\n        android:shadowColor=\"#B4B1B1\"\n        android:text=\"Snow Leopard13\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"28sp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/textView\" />\n\n    <TextView\n        android:id=\"@+id/textView\"\n        android:layout_width=\"401dp\"\n        android:layout_height=\"61dp\"\n        android:layout_marginStart=\"8dp\"\n        android:layout_marginTop=\"60dp\"\n        android:layout_marginEnd=\"8dp\"\n        android:elegantTextHeight=\"true\"\n        android:fontFamily=\"sans-serif\"\n        android:gravity=\"center\"\n        android:shadowColor=\"@color/grayColor\"\n        android:text=\"@string/app_name\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"36sp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintHorizontal_bias=\"0.495\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\" />\n\n    <ProgressBar\n        android:id=\"@+id/progressBar\"\n        style=\"?android:attr/progressBarStyle\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"8dp\"\n        android:layout_marginTop=\"16dp\"\n        android:layout_marginEnd=\"8dp\"\n        android:visibility=\"invisible\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintHorizontal_bias=\"0.498\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/RegisterOrgBtn\" />\n\n    <TextView\n        android:id=\"@+id/LoginForget\"\n        android:layout_width=\"0dp\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"120dp\"\n        android:layout_marginEnd=\"8dp\"\n        android:gravity=\"center\"\n        android:text=\"Forgot Password?\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"16sp\"\n\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintHorizontal_bias=\"1.0\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/checkBox\" />\n\n    <CheckBox\n        android:id=\"@+id/checkBox\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"120dp\"\n        android:layout_marginTop=\"8dp\"\n        android:layout_marginEnd=\"5dp\"\n        android:buttonTint=\"@color/blackColor\"\n        android:onClick=\"saveUserEmailPassword\"\n        android:text=\"Remember my email and password\"\n        android:textColor=\"@color/blackColor\"\n        android:textSize=\"14sp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/password\" />\n\n        app:layout_constraintTop_toBottomOf=\"@+id/LoginBtn\" />\n\n\n</androidx.constraintlayout.widget.ConstraintLayout>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_login.xml	(revision b613f5eb79cabb60915d0bdf4a0e7deacf1258d0)
++++ app/src/main/res/layout/activity_login.xml	(date 1631074629376)
+@@ -126,7 +126,7 @@
+         android:fontFamily="sans-serif"
+         android:gravity="center"
+         android:shadowColor="#B4B1B1"
+-        android:text="Snow Leopard13"
++        android:text="Snow Leopard14"
+         android:textColor="@color/blackColor"
+         android:textSize="28sp"
+         app:layout_constraintEnd_toEndOf="parent"
+Index: app/src/main/res/layout/fragment_home.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_home.xml	(date 1631569077270)
++++ app/src/main/res/layout/fragment_home.xml	(date 1631569077270)
+@@ -0,0 +1,80 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@drawable/background"
++    tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.HomeFragment">
++
++    <TextView
++        android:id="@+id/homeId"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="32dp"
++        android:text="Dashboard"
++        android:textColor="@color/whiteColor"
++        android:textSize="60sp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++
++    <Button
++        android:id="@+id/buttonStudy"
++        android:layout_width="0dp"
++        android:layout_height="80dp"
++        android:layout_marginStart="32dp"
++        android:layout_marginEnd="32dp"
++        android:layout_marginBottom="16dp"
++
++        android:backgroundTint="#80FFFFFF"
++        android:drawableLeft="@drawable/ic_list"
++        android:drawableRight="@drawable/ic_arrow"
++        android:text="Study"
++        android:textColor="@color/blackColor"
++        android:textSize="16sp"
++        app:cornerRadius="15dp"
++        app:layout_constraintBottom_toTopOf="@+id/buttonMap"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <Button
++        android:id="@+id/buttonMap"
++        android:layout_width="0dp"
++        android:layout_height="80dp"
++        android:layout_marginStart="32dp"
++        android:layout_marginEnd="32dp"
++        android:layout_marginBottom="16dp"
++        android:backgroundTint="#80FFFFFF"
++        android:drawableLeft="@drawable/ic_map1"
++        android:drawableRight="@drawable/ic_arrow"
++        android:text="Map"
++        android:textColor="@color/blackColor"
++        android:textSize="16sp"
++        app:cornerRadius="15dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.0"
++        app:layout_constraintStart_toStartOf="parent" />
++
++    <Button
++        android:id="@+id/buttonProfile"
++        android:layout_width="0dp"
++        android:layout_height="80dp"
++        android:layout_marginStart="32dp"
++        android:layout_marginEnd="32dp"
++        android:layout_marginBottom="16dp"
++        android:backgroundTint="#80FFFFFF"
++        android:drawableLeft="@drawable/ic_profile"
++        android:drawableRight="@drawable/ic_arrow"
++        android:text="Profile"
++        android:textColor="@color/blackColor"
++        android:textSize="16sp"
++        app:cornerRadius="15dp"
++        app:layout_constraintBottom_toTopOf="@+id/buttonStudy"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="1.0"
++        app:layout_constraintStart_toStartOf="parent" />
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/Fragment/HomeFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/Fragment/HomeFragment.java	(date 1631572999419)
++++ app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/Fragment/HomeFragment.java	(date 1631572999419)
+@@ -0,0 +1,81 @@
++package org.kashmirworldfoundation.WildlifeGeoSnap.Fragment;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.Button;
++
++import androidx.fragment.app.Fragment;
++import androidx.fragment.app.FragmentManager;
++import androidx.fragment.app.FragmentTransaction;
++
++import com.google.android.material.navigation.NavigationView;
++
++import org.kashmirworldfoundation.WildlifeGeoSnap.MapCreateList;
++import org.kashmirworldfoundation.WildlifeGeoSnap.R;
++
++public class HomeFragment extends Fragment {
++    private View HomeFragment;
++    private Button buttonProfile;
++    private Button buttonStudy;
++    private Button buttonMap;
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        HomeFragment=inflater.inflate(R.layout.fragment_home, container, false);
++        buttonProfile=HomeFragment.findViewById(R.id.buttonProfile);
++        buttonStudy=HomeFragment.findViewById(R.id.buttonStudy);
++        buttonMap=HomeFragment.findViewById(R.id.buttonMap);
++
++        buttonProfile.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                NavigationView navigationView = (NavigationView) HomeFragment.findViewById(R.id.nav_view);
++
++                HomeFragment.onNavigationItemSelected(navigationView.getMenu().getItem(R.id.nav_profile));
++                navigationView.setCheckedItem(R.id.nav_profile);
++//                navigationView.getMenu().getItem(1).setChecked(true);
++                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
++                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
++                ProfileFragment profile = new ProfileFragment();
++                fragmentTransaction.replace(R.id.fragment_container, profile);
++                fragmentTransaction.addToBackStack(null);
++                fragmentTransaction.commit();
++            }
++        });
++
++        buttonStudy.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                NavigationView navigationView = (NavigationView) HomeFragment.findViewById(R.id.nav_view);
++                navigationView.setCheckedItem(R.id.nav_add);
++//                navigationView.getMenu().getItem(3).setChecked(true);
++                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
++                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
++                AddFragment study = new AddFragment();
++                fragmentTransaction.replace(R.id.fragment_container, study);
++                fragmentTransaction.addToBackStack(null);
++                fragmentTransaction.commit();
++            }
++        });
++
++        buttonMap.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                NavigationView navigationView = (NavigationView) HomeFragment.findViewById(R.id.nav_view);
++                navigationView.setCheckedItem(R.id.nav_map);
++//                navigationView.getMenu().getItem(5).setChecked(true);
++                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
++                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
++                MapFragment map = new MapFragment();
++                fragmentTransaction.replace(R.id.fragment_container, map);
++                fragmentTransaction.addToBackStack(null);
++                fragmentTransaction.commit();
++            }
++        });
++        return HomeFragment;
++    }
++
++}
+\ No newline at end of file
+Index: app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/Fragment/AboutFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/Fragment/AboutFragment.java	(date 1631559628586)
++++ app/src/main/java/org/kashmirworldfoundation/WildlifeGeoSnap/Fragment/AboutFragment.java	(date 1631559628586)
+@@ -0,0 +1,24 @@
++package org.kashmirworldfoundation.WildlifeGeoSnap.Fragment;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import androidx.fragment.app.Fragment;
++
++import org.kashmirworldfoundation.WildlifeGeoSnap.MapCreateList;
++import org.kashmirworldfoundation.WildlifeGeoSnap.R;
++
++public class AboutFragment extends Fragment {
++    private View AboutFragment;
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        AboutFragment=inflater.inflate(R.layout.fragment_about, container, false);
++
++        return AboutFragment;
++    }
++
++}
+Index: app/src/main/res/layout/fragment_about.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_about.xml	(date 1631559245113)
++++ app/src/main/res/layout/fragment_about.xml	(date 1631559245113)
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:background="@drawable/background"
++    tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AboutFragment">
++
++    <TextView
++        android:id="@+id/aboutId"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="90dp"
++        android:text="About"
++        android:textColor="@color/whiteColor"
++        android:textSize="60sp"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0.5"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
++</androidx.constraintlayout.widget.ConstraintLayout>

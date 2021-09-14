@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.logo);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AddFragment()).commit();
                 break;
-            case R.id.nav_widlifeSighting:
+            case R.id.nav_wildlifeSighting:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new WildlifeSightingFragment()).commit();
                 break;

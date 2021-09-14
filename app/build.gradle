@@ -10,8 +10,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         multiDexEnabled true
-        versionCode 13
-        versionName "13.0"
+        versionCode 14
+        versionName "14.0"
         ndk {
             debugSymbolLevel 'FULL'
         }

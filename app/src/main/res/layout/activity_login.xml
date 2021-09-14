@@ -126,7 +126,7 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:shadowColor="#B4B1B1"
-        android:text="Snow Leopard13"
+        android:text="Snow Leopard14"
         android:textColor="@color/blackColor"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"

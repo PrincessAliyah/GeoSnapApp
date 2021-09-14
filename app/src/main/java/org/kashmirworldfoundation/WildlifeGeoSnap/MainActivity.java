@@ -30,7 +30,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AboutFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AddFragment;
+import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.HomeFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.MapFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.WildlifeSightingFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment;
@@ -87,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new ProfileFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_profile);
+                    new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
         }
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -102,26 +104,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item){
         switch (item.getItemId()){
 
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new HomeFragment()).commit();
+                break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
-                break;
-            case R.id.nav_add:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AddFragment()).commit();
-                break;
-            case R.id.nav_map:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MapFragment()).commit();
-                break;
-            case R.id.nav_widlifeSighting:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new WildlifeSightingFragment()).commit();
                 break;
             case R.id.nav_list:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();
                 break;
+            case R.id.nav_add:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AddFragment()).commit();
+                break;
+            case R.id.nav_widlifeSighting:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new WildlifeSightingFragment()).commit();
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new MapFragment()).commit();
+                break;
+            case R.id.nav_about:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new AboutFragment()).commit();
+                break;
+
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

@@ -1,6 +1,7 @@
 package org.kashmirworldfoundation.WildlifeGeoSnap;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,16 +11,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.material.navigation.NavigationView;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.apache.http.HttpEntity;
@@ -30,6 +39,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.jetbrains.annotations.NotNull;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AboutFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AddFragment;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.HomeFragment;
@@ -39,9 +49,24 @@ import org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ProfileFragment;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private AddFragment addFragment;
@@ -56,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String longitude;
     private String altitude;
 
+    private String Uid;
+    private FirebaseFirestore Fstore;
+    private FirebaseAuth mAuth;
 
     private static final String ELEVATION_API_KEY="AIzaSyBh-rFSAH9QqPtUrLXcT5Z0c2ZQiJUWkTc";
 
@@ -75,8 +103,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
 
+        mAuth=FirebaseAuth.getInstance();
+        Fstore=FirebaseFirestore.getInstance();
+        Uid=mAuth.getCurrentUser().getUid();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        updateNavHeader();
 
         addFragment = new AddFragment();
 
@@ -144,6 +178,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
+    public void updateNavHeader(){
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUserName = headerView.findViewById(R.id.NameHeader);
+        ImageView navSerPhoto = headerView.findViewById(R.id.ProfilePicHeader);
+
+        Fstore.collection("Member").document(Uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                Member user=documentSnapshot.toObject(Member.class);
+                navUserName.setText(user.getFullname());
+
+                fetchData(user.getProfile(),navSerPhoto);
+
+            }
+        });
+
+    }
+    private void fetchData(String location, ImageView image) {
+        StorageReference ref = FirebaseStorage.getInstance().getReference(location);
+
+        GlideApp.with(this)
+                .load(ref)
+                .into(image);
+    }
 
     @Override
     public void onBackPressed(){

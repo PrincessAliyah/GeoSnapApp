@@ -33,8 +33,6 @@ public class HomeFragment extends Fragment {
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                navigationView.getMenu().findItem(R.id.nav_profile).setChecked(true);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 ProfileFragment profile = new ProfileFragment();

@@ -9,6 +9,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
@@ -142,10 +144,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
                 break;
-            case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProfileFragment()).commit();
-                break;
             case R.id.nav_list:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();
@@ -166,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AboutFragment()).commit();
                 break;
-
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -193,6 +190,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 fetchData(user.getProfile(),navSerPhoto);
 
+            }
+        });
+
+        navSerPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ProfileFragment profile = new ProfileFragment();
+                fragmentTransaction.replace(R.id.fragment_container, profile);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                navigationView.getMenu().findItem(R.id.nav_home).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_add).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_wildlifeSighting).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_map).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_about).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_logout).setChecked(false);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+        navUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ProfileFragment profile = new ProfileFragment();
+                fragmentTransaction.replace(R.id.fragment_container, profile);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                navigationView.getMenu().findItem(R.id.nav_home).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_add).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_wildlifeSighting).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_map).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_about).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_logout).setChecked(false);
+                drawer.closeDrawer(GravityCompat.START);
             }
         });
 

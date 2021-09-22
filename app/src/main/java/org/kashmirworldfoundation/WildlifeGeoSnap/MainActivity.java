@@ -144,17 +144,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
                 break;
-            case R.id.nav_list:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.ListFragment()).commit();
-                break;
-            case R.id.nav_add:
+            case R.id.nav_study:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AddFragment()).commit();
-                break;
-            case R.id.nav_wildlifeSighting:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new WildlifeSightingFragment()).commit();
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -203,9 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 navigationView.getMenu().findItem(R.id.nav_home).setChecked(false);
-                navigationView.getMenu().findItem(R.id.nav_add).setChecked(false);
-                navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
-                navigationView.getMenu().findItem(R.id.nav_wildlifeSighting).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_study).setChecked(false);
                 navigationView.getMenu().findItem(R.id.nav_map).setChecked(false);
                 navigationView.getMenu().findItem(R.id.nav_about).setChecked(false);
                 navigationView.getMenu().findItem(R.id.nav_logout).setChecked(false);
@@ -222,9 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 navigationView.getMenu().findItem(R.id.nav_home).setChecked(false);
-                navigationView.getMenu().findItem(R.id.nav_add).setChecked(false);
-                navigationView.getMenu().findItem(R.id.nav_list).setChecked(false);
-                navigationView.getMenu().findItem(R.id.nav_wildlifeSighting).setChecked(false);
+                navigationView.getMenu().findItem(R.id.nav_study).setChecked(false);
                 navigationView.getMenu().findItem(R.id.nav_map).setChecked(false);
                 navigationView.getMenu().findItem(R.id.nav_about).setChecked(false);
                 navigationView.getMenu().findItem(R.id.nav_logout).setChecked(false);

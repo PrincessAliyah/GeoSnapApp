@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                navigationView.getMenu().findItem(R.id.nav_add).setChecked(true);
+                navigationView.getMenu().findItem(R.id.nav_study).setChecked(true);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AddFragment study = new AddFragment();

@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="481dp" />
+                app:layout_constraintGuide_begin="497dp" />
 
             <TextView
                 android:id="@+id/watershedIdLabel"
@@ -300,7 +300,7 @@
                 android:id="@+id/createStationLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif"
                 android:text="Choose Station"
                 android:textColor="#FFFFFF"
@@ -728,7 +728,9 @@
                 android:layout_marginTop="16dp"
 
 
+                android:backgroundTint="#80FFFFFF"
                 android:text="Post Stations"
+                android:textColor="@color/blackColor"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -824,7 +826,7 @@
                 android:id="@+id/StudySpinner"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="160dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/createStationLabel" />
@@ -833,8 +835,10 @@
                 android:id="@+id/AddStudyBtn"
                 android:layout_width="335dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="280dp"
+                android:layout_marginTop="100dp"
+                android:backgroundTint="#80FFFFFF"
                 android:text="Add Study"
+                android:textColor="@color/blackColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/createStationLabel" />
@@ -844,7 +848,9 @@
                 android:layout_width="335dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="#80FFFFFF"
                 android:text="Refresh Study"
+                android:textColor="@color/blackColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/AddStudyBtn" />
@@ -859,6 +865,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/saveButtonId" />
+
+            <Button
+                android:id="@+id/ListBtn"
+                android:layout_width="335dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#80FFFFFF"
+                android:text="List"
+                android:textColor="@color/blackColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postbuttonCam" />
+
+            <Button
+                android:id="@+id/WildlifeSightingBtn"
+                android:layout_width="335dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#80FFFFFF"
+                android:text="Wildlife Sighting"
+                android:textColor="@color/blackColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ListBtn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

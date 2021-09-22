@@ -35,6 +35,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.kashmirworldfoundation.WildlifeGeoSnap.CreateStudy;
@@ -53,6 +54,7 @@ import android.content.SharedPreferences;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
@@ -70,6 +72,7 @@ import org.kashmirworldfoundation.WildlifeGeoSnap.CameraStation;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Member;
 import org.kashmirworldfoundation.WildlifeGeoSnap.MyDateTypeAdapter;
 import org.kashmirworldfoundation.WildlifeGeoSnap.Study;
+import org.kashmirworldfoundation.WildlifeGeoSnap.WildlifeSighting;
 
 
 import java.lang.reflect.Type;
@@ -105,7 +108,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
     private String sdcard;
     private static final int LOCATION_REQUEST = 111;
     private View fragmentView ;
-    private Button save,post,StudyAdd,StudyRefresh,Studyback;
+    private Button save,post,StudyAdd,StudyRefresh,StudyList,StudyWildlifeSighting,Studyback;
     private String SStudy;
     private ArrayList<String> StudyArray;
     private Date currentTime;
@@ -143,6 +146,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
         NotesInput =fragmentView.findViewById(R.id.NoteInput);
 
         StudyAdd = fragmentView.findViewById(R.id.AddStudyBtn);
+
         StudyAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +155,32 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
         });
         StudyRefresh=fragmentView.findViewById(R.id.RefreshStudyBtn);
         Studyback= fragmentView.findViewById(R.id.ChooseStudyBtn);
+        StudyList=fragmentView.findViewById(R.id.ListBtn);
+        StudyWildlifeSighting=fragmentView.findViewById(R.id.WildlifeSightingBtn);
+
+        StudyList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ListFragment list = new ListFragment();
+                fragmentTransaction.replace(R.id.fragment_container, list);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+        StudyWildlifeSighting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                WildlifeSightingFragment wildlifeSighting = new WildlifeSightingFragment();
+                fragmentTransaction.replace(R.id.fragment_container, wildlifeSighting);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         me =loaduser();
         /*
         String StudiesS = getActivity().getIntent().getStringExtra("Studies");

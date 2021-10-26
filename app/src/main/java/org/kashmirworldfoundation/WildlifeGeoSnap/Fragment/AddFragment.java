@@ -204,6 +204,8 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                     Title.setText("Add CameraStation");
                     fragmentView.findViewById(R.id.AddStudyBtn).setVisibility(View.GONE);
                     fragmentView.findViewById(R.id.RefreshStudyBtn).setVisibility(View.GONE);
+                    fragmentView.findViewById(R.id.ListBtn).setVisibility(View.GONE);
+                    fragmentView.findViewById(R.id.WildlifeSightingBtn).setVisibility(View.GONE);
                     stationIdInput.setVisibility(View.VISIBLE);
                     WatershedInput.setVisibility(View.VISIBLE);
                     LatitudeInput.setVisibility(View.VISIBLE);

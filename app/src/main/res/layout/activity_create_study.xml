@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif"
-        android:text="Create Study"
+        android:text="Add New Study"
         android:textColor="#FFFFFF"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"

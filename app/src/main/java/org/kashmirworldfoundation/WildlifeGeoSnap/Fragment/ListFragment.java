@@ -60,6 +60,7 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
     private static final String TAG = "ListFragment";
 
     private static final int PERMISSION_REQUEST_CODE = 100;
+    private TextView Title;
     private RecyclerView recyclerView;
     private ListFragmentAdapter listFragmentAdapter;
     private ArrayList<Study> CStationArrayList;
@@ -91,9 +92,11 @@ public class ListFragment extends Fragment implements View.OnClickListener  {
 
         ListFragment=inflater.inflate(R.layout.activity_listfragment_recycler, container, false);
         recyclerView=ListFragment.findViewById(R.id.recyler);
+        Title = ListFragment.findViewById(R.id.listOfStudyLabel);
         CStationArrayList= new ArrayList<>();
 
         listFragmentAdapter=new ListFragmentAdapter(CStationArrayList,this);
+        Title.setText("List of Studies");
         recyclerView.setAdapter(listFragmentAdapter);
         LinearLayoutManager manager=new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(manager);

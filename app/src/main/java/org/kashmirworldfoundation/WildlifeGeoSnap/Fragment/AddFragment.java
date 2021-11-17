@@ -201,7 +201,7 @@ public class AddFragment  extends Fragment implements View.OnClickListener{
                 if (cur.equals( "Pick A Study")==Boolean.FALSE && cur.equals("No Studies")==Boolean.FALSE) {
                     SStudy = cur;
                     SpinStudies.setVisibility(View.GONE);
-                    Title.setText("Add CameraStation");
+                    Title.setText("Add Camera Station");
                     fragmentView.findViewById(R.id.AddStudyBtn).setVisibility(View.GONE);
                     fragmentView.findViewById(R.id.RefreshStudyBtn).setVisibility(View.GONE);
                     fragmentView.findViewById(R.id.ListBtn).setVisibility(View.GONE);

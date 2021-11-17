@@ -729,7 +729,7 @@
 
 
                 android:backgroundTint="#80FFFFFF"
-                android:text="Post Stations"
+                android:text="Add Camera Station"
                 android:textColor="@color/blackColor"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -837,7 +837,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="100dp"
                 android:backgroundTint="#80FFFFFF"
-                android:text="Add Study"
+                android:text="Add New Study"
                 android:textColor="@color/blackColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -872,7 +872,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#80FFFFFF"
-                android:text="List"
+                android:text="List of Studies"
                 android:textColor="@color/blackColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

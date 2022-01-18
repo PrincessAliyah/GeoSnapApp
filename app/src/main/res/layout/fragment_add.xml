@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="497dp" />
+                app:layout_constraintGuide_begin="510dp" />
 
             <TextView
                 android:id="@+id/watershedIdLabel"
@@ -79,13 +79,13 @@
                 android:id="@+id/SdCardLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="sans-serif"
                 android:text="Sdcard"
                 android:textColor="#FFFFFF"
                 android:textSize="21dp"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/cameraIdLabel"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="44dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:text="LURE TYPE"
                 android:textColor="#FFFFFF"
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:text="HABITAT"
                 android:textColor="#FFFFFF"
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:text="TERRAIN"
                 android:textColor="#FFFFFF"
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
                 android:text="SUBSTRATE"
                 android:textColor="#FFFFFF"
@@ -167,9 +167,9 @@
                 android:layout_width="115dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif"
-                android:text="Station"
+                android:text="STATION"
                 android:textColor="#FFFFFF"
                 android:textSize="21dp"
                 android:visibility="invisible"
@@ -181,9 +181,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="sans-serif"
-                android:text="potential"
+                android:text="POTENTIAL"
                 android:textColor="#FFFFFF"
                 android:textSize="21dp"
                 android:visibility="invisible"
@@ -194,7 +194,7 @@
                 android:id="@+id/nId"
                 android:layout_width="199dp"
                 android:layout_height="29dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="32dp"
                 android:background="#FFFFFF"
                 android:ems="10"
                 android:inputType="numberDecimal"
@@ -285,14 +285,14 @@
                 android:id="@+id/SdcardInput"
                 android:layout_width="199dp"
                 android:layout_height="29dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="32dp"
                 android:alpha="50"
                 android:background="#FDFBFB"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textSize="18sp"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/cameraId"
                 app:layout_constraintEnd_toEndOf="@+id/cameraId"
                 app:layout_constraintStart_toStartOf="@+id/cameraId" />
 
@@ -329,7 +329,7 @@
                 android:id="@+id/watershedid"
                 android:layout_width="199dp"
                 android:layout_height="29dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="32dp"
                 android:alpha="50"
                 android:background="#FDFBFB"
                 android:ems="10"
@@ -427,21 +427,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="684dp" />
+                app:layout_constraintGuide_begin="730dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="872dp" />
+                app:layout_constraintGuide_begin="950dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="1118dp" />
+                app:layout_constraintGuide_begin="1230dp" />
 
 
             <RadioGroup
@@ -518,21 +518,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="1310dp" />
+                app:layout_constraintGuide_begin="1450dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="1490dp" />
+                app:layout_constraintGuide_begin="1650dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="1655dp" />
+                app:layout_constraintGuide_begin="1780dp" />
 
             <RadioGroup
                 android:id="@+id/radioGroup05"
@@ -773,7 +773,6 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/camera"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/guideline9"
                 app:layout_constraintEnd_toStartOf="@+id/CamPic2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -788,7 +787,6 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/camera"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/guideline9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
@@ -798,7 +796,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                app:layout_constraintGuide_begin="1781dp" />
+                app:layout_constraintGuide_begin="1881dp" />
 
             <EditText
                 android:id="@+id/NoteInput"
@@ -860,6 +858,7 @@
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="Choose Study"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"

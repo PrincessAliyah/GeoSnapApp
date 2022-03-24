@@ -17,10 +17,17 @@
         <entry key="app/src/main/res/layout/activity_create_station.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/activity_create_study.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/activity_expand.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_forget_password.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/activity_googlemap.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/activity_listfragment_recycler.xml" value="0.28512820512820514" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_mapcreate.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/activity_mapcreate_list.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/activity_offline_manager.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/activity_post.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/activity_prey_expand.xml" value="0.20092592592592592" />
+        <entry key="app/src/main/res/layout/activity_rebait__list.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_register__org__admin.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_register_org.xml" value="0.5" />
@@ -30,14 +37,31 @@
         <entry key="app/src/main/res/layout/activity_station__list.xml" value="0.28512820512820514" />
         <entry key="app/src/main/res/layout/activity_takedown__list.xml" value="0.28512820512820514" />
         <entry key="app/src/main/res/layout/activity_wildlifesighting_expand.xml" value="0.3958333333333333" />
+        <entry key="app/src/main/res/layout/content_register__org__admin.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/disclaimer_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_about.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.33783533491549234" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/fragment_prey.xml" value="0.20092592592592592" />
         <entry key="app/src/main/res/layout/fragment_wildlifesighting.xml" value="0.3958333333333333" />
+        <entry key="app/src/main/res/layout/nav_header.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/rebait_sheet.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/rebait_sheet1.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/rebait_sheet2.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/row.xml" value="0.5" />
         <entry key="app/src/main/res/layout/row_createmap.xml" value="0.3074074074074074" />
         <entry key="app/src/main/res/layout/row_prey.xml" value="0.3958333333333333" />
+        <entry key="app/src/main/res/layout/row_rebait.xml" value="0.22554347826086957" />
         <entry key="app/src/main/res/layout/row_station.xml" value="0.3074074074074074" />
+        <entry key="app/src/main/res/layout/row_wildlifesighting.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/takedown_sheet.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/takedown_sheet1.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/layout/takedown_sheet2.xml" value="0.22554347826086957" />
+        <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.35260416666666666" />
+        <entry key="app/src/main/res/menu/create_station_menu.xml" value="0.35260416666666666" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.3020408163265306" />
       </map>
     </option>

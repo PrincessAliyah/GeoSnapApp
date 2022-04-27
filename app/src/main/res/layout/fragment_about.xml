@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+
+    tools:context="org.kashmirworldfoundation.WildlifeGeoSnap.Fragment.AboutFragment">
+
+
+    <TextView
+        android:id="@+id/aboutId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="About"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/whiteColor"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textFirst"
+        android:layout_width="392dp"
+        android:layout_height="169dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Wildlife GeoSnap is an app designed for biologists to record field observations and camera trap location data while in the field.You can record your data from the field, with or without internet connection and when the app is connected to the internet, the data can be shared with the members in your organization. The app contains features such as:"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aboutId" />
+
+    <TextView
+        android:id="@+id/textSecond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop = "15dp"
+        android:textColor="@color/whiteColor"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textFirst"
+        android:text="~ Create multiple studies for your organization"
+        />
+
+    <TextView
+        android:id="@+id/textThird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSecond"
+        android:text="    latitude and longitude to get exact location"
+        />
+
+    <TextView
+        android:id="@+id/text4th"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop = "15dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textThird"
+        android:text="~ Share camera trap information with your team"
+        />
+
+    <TextView
+        android:id="@+id/text5th"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop = "15dp"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text4th"
+        android:text="~ Map displays, the location of different "
+        />
+
+    <TextView
+        android:id="@+id/text6th"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text5th"
+        android:text="    camera traps and study locations"
+        />
+    <TextView
+        android:id="@+id/text7th"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop = "15dp"
+        android:textColor="@color/whiteColor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text6th"
+        android:text="~ Snap and store images of wildlife sightings
+"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
